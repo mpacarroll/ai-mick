@@ -260,13 +260,13 @@
         <span class="chip">2-week project</span>
         <h3>Blueprint Sprint</h3>
         <p>A fuzzy AI idea in, a clear plan and a working first version out. Fixed scope, fixed price, no hourly billing.</p>
-        <a class="btn ghost sm" href="mailto:REPLACE_WITH_MICK_EMAIL?subject=Blueprint%20Sprint" data-funnel="work-inquiry">Book a sprint</a>
+        <a class="btn ghost sm" href="#inquire" data-offer="Blueprint Sprint" data-funnel="work-inquiry">Book a sprint</a>
       </div>
       <div class="card">
         <span class="chip">team workshop</span>
         <h3>Ship with AI — Cohort</h3>
         <p>A short, hands-on course that trains your team to get real, reliable work out of AI instead of confident nonsense.</p>
-        <a class="btn ghost sm" href="mailto:REPLACE_WITH_MICK_EMAIL?subject=Team%20cohort" data-funnel="work-inquiry">Bring it to my team</a>
+        <a class="btn ghost sm" href="#inquire" data-offer="Team cohort" data-funnel="work-inquiry">Bring it to my team</a>
       </div>
       <div class="card">
         <span class="chip">cohort + community</span>
@@ -278,8 +278,26 @@
         <span class="chip">part-time</span>
         <h3>Part-time AI product lead</h3>
         <p>A senior product brain steering your AI push a few hours a week: I decide what to build, write the plan, and stop the wrong ideas early.</p>
-        <a class="btn ghost sm" href="mailto:REPLACE_WITH_MICK_EMAIL?subject=Fractional%20advisory" data-funnel="work-inquiry">Talk to me</a>
+        <a class="btn ghost sm" href="#inquire" data-offer="Part-time AI product lead" data-funnel="work-inquiry">Talk to me</a>
       </div>
+    </div>
+
+    <div id="inquire" class="card" style="margin-top:18px">
+      <h3>Tell me about the work</h3>
+      <p>No pitch and no call required to start. Say what you're trying to do and I'll reply with whether I can help and what it would cost.</p>
+      <form id="inq-form" novalidate>
+        <input type="hidden" name="offer" id="inq-offer" value="">
+        <p style="margin:.6em 0"><label for="inq-email">Your email</label><br>
+          <input id="inq-email" name="email" type="email" required placeholder="you@company.com"
+                 style="width:100%;max-width:380px;padding:11px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit"></p>
+        <p style="margin:.6em 0"><label for="inq-msg">What are you trying to do?</label><br>
+          <textarea id="inq-msg" name="message" rows="4" required placeholder="We want to use AI for X but keep getting unreliable results."
+                 style="width:100%;max-width:520px;padding:11px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit"></textarea></p>
+        <input type="text" name="website" id="inq-hp" tabindex="-1" autocomplete="off" aria-hidden="true"
+               style="position:absolute;left:-9999px;width:1px;height:1px">
+        <button class="btn sm" type="submit" data-funnel="work-inquiry">Send it</button>
+        <p id="inq-msg-out" role="status" style="font-weight:600;margin-top:10px"></p>
+      </form>
     </div>
   </div></section>
 
@@ -291,7 +309,7 @@
         <span class="chip">book</span>
         <h3>The AI Practice Book</h3>
         <p>Thirty hands-on exercises to get genuinely good at working with AI. Paper, pencil, and a chatbot.</p>
-        <a class="btn ghost sm" href="REPLACE_WITH_BOOK_LINK" data-funnel="book-click">Get the book</a>
+        <a class="btn ghost sm" href="#email" data-funnel="book-click">Tell me when it's out</a>
       </div>
       <div class="card">
         <span class="chip">free sample</span>
@@ -350,5 +368,36 @@
   })();
 </script>
 
+
+<script>
+(function(){
+  // Clicking a service CTA pre-fills which offer the enquiry is about.
+  document.querySelectorAll('a[data-offer]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var o=document.getElementById('inq-offer'); if(o) o.value=a.dataset.offer;
+    });
+  });
+  var f=document.getElementById('inq-form'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var out=document.getElementById('inq-msg-out'), btn=f.querySelector('button');
+    var email=(document.getElementById('inq-email').value||'').trim();
+    var message=(document.getElementById('inq-msg').value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ out.textContent='Please enter a valid email.'; return; }
+    if(!message){ out.textContent='Tell me a little about the work.'; return; }
+    if(document.getElementById('inq-hp').value){ out.textContent='Thanks — I\u2019ll be in touch.'; return; }
+    btn.disabled=true; out.textContent='Sending\u2026';
+    fetch('https://join.micksfairdinkumai.com/inquire',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,message:message,offer:document.getElementById('inq-offer').value})})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(d){
+        if(d && d.ok){ out.textContent='Thanks \u2014 I\u2019ll be in touch shortly.'; f.reset(); }
+        else { out.textContent=(d&&d.error)?d.error:'Something went wrong. Try again.'; btn.disabled=false; }
+      })
+      .catch(function(){ out.textContent='Could not reach the server. Try again shortly.'; btn.disabled=false; });
+  });
+})();
+</script>
 </body>
 </html>
