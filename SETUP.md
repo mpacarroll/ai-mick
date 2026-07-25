@@ -3,7 +3,7 @@
 The hub ships as a static site with clearly-marked placeholders. Nothing tracks anyone until you connect the pieces below. The free tools in the other repos stay no-tracking regardless — analytics live on this hub only.
 
 ## 1. Publish
-Enable GitHub Pages on this repo (Settings → Pages → deploy from `main`). The hub goes live at `https://mpacarroll.github.io/mick/`. (See the firewall note at the bottom before you decide that's the final home.)
+Enable GitHub Pages on this repo (Settings → Pages → deploy from `main`). The hub goes live at `https://mpacarroll.github.io/ai-mick/`. (See the firewall note at the bottom before you decide that's the final home.)
 
 ## 2. Email provider (the funnel's core)
 Pick one (buttondown or beehiiv are simple). Create a list, then in `index.html`:
