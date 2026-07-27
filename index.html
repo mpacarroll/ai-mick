@@ -162,7 +162,10 @@
   footer a{ color:var(--green); }
   .price{color:var(--green);font-size:.95rem;margin:.4em 0 .8em}
   @media(prefers-color-scheme:dark){.price{color:var(--gold-bright)}}
+  .takes a{color:inherit;text-decoration:none}
+  .takes a:hover{color:var(--green);text-decoration:underline}
 </style>
+<link rel="alternate" type="application/rss+xml" title="Field notes" href="blog/feed.xml">
 </head>
 <body>
 
@@ -246,11 +249,12 @@
     <h2>Field notes</h2>
     <p class="lede">What I'm learning, built in the open. The takes are free; the receipts are attached.</p>
     <ul class="takes">
-      <li><b>Stop building a second brain.</b><br>The note-linking obsession is mostly procrastination that feels like progress, and AI just made the elaborate structure pointless. <span class="fine">(the argument, with the 20-minute alternative)</span></li>
-      <li><b>You don't need a dozen AI helpers. You need one clear request.</b><br>The bottleneck was never the AI. It's writing down what "done" means clearly enough that a machine can't misread it.</li>
-      <li><b>Keeping in touch is a system, not a personality trait.</b><br>Give the people you love a cadence and let something small watch the clock. Warmth on a rhythm beats grand gestures every few years.</li>
+      <li><b><a href="blog/second-brain/" data-funnel="notes-read">Stop building a second brain.</a></b><br>The note-linking obsession is mostly procrastination that feels like progress, and AI just made the elaborate structure pointless. <span class="fine">(the argument, with the 20-minute alternative)</span></li>
+      <li><b><a href="blog/one-clear-spec/" data-funnel="notes-read">You don't need a dozen AI helpers. You need one clear request.</a></b><br>The bottleneck was never the AI. It's writing down what "done" means clearly enough that a machine can't misread it.</li>
+      <li><b><a href="blog/you-are-not-behind/" data-funnel="notes-read">You are not behind on AI.</a></b><br>If you can write a clear email you already have the core skill. The people saying otherwise are usually selling the cure.</li>
+      <li><b><a href="blog/spec-teardown/" data-funnel="notes-read">From a fuzzy idea to a shipped tool, in the open.</a></b><br>A real spec-driven build, start to finish, receipts attached.</li>
     </ul>
-    <p style="margin-top:20px"><a href="#email" data-funnel="notes-email">Get these by email →</a></p>
+    <p style="margin-top:20px"><a href="blog/" data-funnel="notes-read">Read all the field notes →</a> &nbsp;·&nbsp; <a href="#email" data-funnel="notes-email">Get them by email →</a></p>
   </div></section>
 
   <!-- WORK WITH ME -->

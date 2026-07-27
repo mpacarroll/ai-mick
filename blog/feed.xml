@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Field notes — Mick's Fair Dinkum AI</title>
+    <link>https://mpacarroll.github.io/ai-mick/blog/</link>
+    <atom:link href="https://mpacarroll.github.io/ai-mick/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Plain-language notes on getting real work out of AI. No hype, nothing to sell you first.</description>
+    <language>en</language>
+    <item>
+      <title>The second brain was always procrastination. AI just proved it.</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/second-brain/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/second-brain/</guid>
+      <pubDate>Sun, 27 Jul 2026 09:00:00 GMT</pubDate>
+      <description>The note-linking dream sold for a decade, and the twenty-minute alternative that actually ships.</description>
+    </item>
+    <item>
+      <title>You do not need more AI agents. You need one clear spec.</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/one-clear-spec/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/one-clear-spec/</guid>
+      <pubDate>Sun, 27 Jul 2026 09:00:00 GMT</pubDate>
+      <description>The bottleneck was never the intelligence. It is that nobody wrote down what done means.</description>
+    </item>
+    <item>
+      <title>AI is not too late for you, and it is not too complicated either.</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/you-are-not-behind/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/you-are-not-behind/</guid>
+      <pubDate>Sun, 27 Jul 2026 09:00:00 GMT</pubDate>
+      <description>If you can write a clear email, you already have the core skill. Proof inside.</description>
+    </item>
+    <item>
+      <title>From a fuzzy idea to a shipped tool, in the open</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/spec-teardown/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/spec-teardown/</guid>
+      <pubDate>Sun, 27 Jul 2026 09:00:00 GMT</pubDate>
+      <description>A real spec-driven build, start to finish, on a tool you can use right now.</description>
+    </item>
+  </channel>
+</rss>
