@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Starts Here — Mick's Fair Dinkum AI</title>
+<meta name="description" content="A short course for people who feel behind on AI and are not. Five modules, plain language, no jargon.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f5a34'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>M</text></svg>">
+<style>
+  :root{--green:#0f5a34;--green-deep:#0a3d24;--gold:#a9780a;--gold-bright:#c99a2e;
+    --paper:#faf8f0;--card:#fff;--ink:#182219;--muted:#586459;--line:#e4dfce;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color-scheme:light dark}
+  @media(prefers-color-scheme:dark){:root{--green:#3fa06a;--green-deep:#0c3b23;--gold:#d7b552;
+    --gold-bright:#e6c766;--paper:#141c16;--card:#1a241d;--ink:#e9efe9;--muted:#9aab9e;--line:#2a362d}}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6}
+  .band{height:10px;background:linear-gradient(90deg,var(--green),var(--gold-bright),var(--green))}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 60px}
+  .top{padding:22px 0 0;font-size:.92rem}
+  .top a{color:var(--green);text-decoration:none;font-weight:600}
+  header{padding:26px 0 4px}
+  .chip{display:inline-block;background:var(--card);border:1px solid var(--gold);
+    border-radius:20px;padding:4px 14px;font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-size:clamp(1.9rem,5vw,2.5rem);margin:.1em 0;color:var(--green-deep)}
+  @media(prefers-color-scheme:dark){h1{color:#d7e6db}}
+  .lede{color:var(--muted);font-size:1.13rem}
+  .price-row{display:flex;align-items:baseline;gap:14px;margin:22px 0}
+  .price{font-family:var(--serif);font-size:2.2rem;color:var(--green)}
+  .price .was{font-size:1.1rem;color:var(--muted);text-decoration:line-through;margin-right:8px}
+  .cta{display:inline-block;background:var(--green);color:#fff;text-decoration:none;
+    padding:15px 26px;border-radius:10px;font-weight:700;font-size:1.08rem}
+  @media(prefers-color-scheme:dark){.cta{color:#08130c}}
+  .cta:hover{background:var(--green-deep)}
+  .note{color:var(--muted);font-size:.88rem;margin-top:10px}
+  h2{font-family:var(--serif);font-size:1.3rem;margin:38px 0 10px;color:var(--green)}
+  .mod{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:10px;padding:14px 18px;margin:10px 0}
+  .mod b{color:var(--green)}
+  .mod p{margin:4px 0 0;color:var(--muted);font-size:.93rem}
+  .for{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .for span{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:.86rem}
+  .mc-cta{margin:34px 0 8px;padding:20px 22px;background:var(--card);border:1px solid var(--line);
+    border-left:3px solid var(--gold);border-radius:12px}
+  .mc-cta h3{font-family:var(--serif);font-size:1.1rem;margin:0 0 4px;color:var(--green)}
+  .mc-cta p{margin:0 0 12px;color:var(--muted);font-size:.9rem}
+  .mc-form{display:flex;gap:8px;flex-wrap:wrap;margin:0}
+  .mc-form input[type=email]{flex:1;min-width:200px;padding:11px;border:1.5px solid var(--line);
+    border-radius:9px;background:var(--paper);color:var(--ink);font:inherit}
+  .mc-form button{background:var(--green);color:#fff;border:none;padding:11px 18px;border-radius:9px;
+    font:inherit;font-weight:600;cursor:pointer}
+  @media(prefers-color-scheme:dark){.mc-form button{color:#08130c}}
+  .mc-hp{position:absolute;left:-9999px;width:1px;height:1px}
+  .mc-msg{width:100%;margin:8px 0 0;font-size:.9rem;font-weight:600;color:var(--green)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .card{display:block;text-decoration:none;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px}
+  .card:hover{border-left-color:var(--green)}
+  .card b{color:var(--green);font-family:var(--serif);font-size:1.05rem}
+  .card .p{color:var(--gold);font-weight:700;font-size:.92rem;margin-top:4px;display:block}
+  footer{color:var(--muted);font-size:.85rem;padding-top:28px;border-top:1px solid var(--line);margin-top:36px}
+  footer a{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="wrap">
+  <p class="top"><a href="https://mpacarroll.github.io/ai-mick/">&larr; Mick's Fair Dinkum AI</a> &nbsp;&middot;&nbsp; <a href="../">All courses</a></p>
+  <header>
+    <p class="chip">Level 1 · Beginner</p>
+    <h1>AI Starts Here</h1>
+    <p class="lede">A short course for people who feel behind on AI and are not. Five modules, plain language, no jargon.</p>
+    <div class="for"><span>never really used AI</span>
+<span>feel behind</span>
+<span>want the basics done right</span></div>
+    <div class="price-row"><span class="price">$19</span></div>
+    <a class="cta" href="https://gumroad.com/l/ai-starts-here">Get the course</a>
+    <p class="note">Instant PDF download. One-time payment, yours to keep.</p>
+  </header>
+  <h2>What's inside</h2>
+  <div class="mod"><b>Module 1 — It is a conversation, not a program</b><p>Why AI needs no special skill, and the two exercises that prove it.</p></div>
+<div class="mod"><b>Module 2 — Say what you want, not how to get it</b><p>Goal-first requests, and why asking for three versions beats asking for one.</p></div>
+<div class="mod"><b>Module 3 — The single most important habit: verify</b><p>Trust it for drafts, verify it for facts. The habit worth more than any prompting trick.</p></div>
+<div class="mod"><b>Module 4 — Make it a back-and-forth</b><p>Using AI to think, not just to produce text. Interviews, iteration, pushback.</p></div>
+<div class="mod"><b>Module 5 — Your one-week plan</b><p>One real task a day for five days. By day five you&#x27;re ahead of most people who&#x27;ve used this far longer.</p></div>
+  <h2>The other levels</h2>
+  <div class="grid">
+  <a class="card" href="../get-ai-to-help/">
+    <b>Get AI to Actually Help</b><span class="p">$39</span>
+    <div style="color:var(--muted);font-size:.88rem;margin-top:4px">Five real workflows for the job hunt, money conversations, travel, and...</div>
+  </a>
+  <a class="card" href="../spec-driven-building/">
+    <b>Spec-Driven Building</b><span class="p">$79</span>
+    <div style="color:var(--muted);font-size:.88rem;margin-top:4px">Ship real software without becoming an engineer, by writing specs prec...</div>
+  </a>
+  </div>
+
+  <section class="mc-cta">
+    <h3>Not ready to buy? Get one useful thing a week instead</h3>
+    <p>Free field notes and tools, no hype, nothing to sell you first.</p>
+    <form class="mc-form" data-source="course-ai-starts-here" novalidate>
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email address" required>
+      <input type="text" name="website" class="mc-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Send it to me</button>
+      <p class="mc-msg" role="status"></p>
+    </form>
+  </section>
+
+  <footer>
+    Made by Mick Cairn. Free tools, plain-language AI, no hype.
+    <a href="https://mpacarroll.github.io/ai-mick/">The hub</a>
+  </footer>
+</div>
+<script>
+(function(){
+  var f=document.querySelector('.mc-form'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=f.querySelector('.mc-msg'), btn=f.querySelector('button');
+    var email=(f.email.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Please enter a valid email.'; return; }
+    if(f.website.value){ msg.textContent='Thanks \u2014 you\u2019re on the list.'; return; }
+    btn.disabled=true; msg.textContent='Adding you\u2026';
+    fetch('https://join.micksfairdinkumai.com/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,source:f.dataset.source})})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(d){
+        if(d && d.ok){ msg.textContent='Thanks \u2014 you\u2019re on the list.'; f.email.value=''; }
+        else { msg.textContent=(d && d.error)?d.error:'Something went wrong. Try again.'; btn.disabled=false; }
+      })
+      .catch(function(){ msg.textContent='Could not reach the server. Try again shortly.'; btn.disabled=false; });
+  });
+})();
+</script>
+</body>
+</html>
