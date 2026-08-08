@@ -19,4 +19,4 @@ Claude Code additionally gets shared skills, agents, and injected core rules thr
 
 ---
 
-🤖 Generated from `ai-instructions/templates/AGENTS.md.tpl`.
+Generated from `ai-instructions:templates/AGENTS.md.tpl`.
