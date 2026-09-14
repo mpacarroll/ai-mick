@@ -7,18 +7,46 @@
     <description>Plain-language notes on getting real work out of AI. No hype, nothing to sell you first.</description>
     <language>en</language>
     <item>
-      <title>The best AI advice I know fits in one sentence</title>
-      <link>https://mpacarroll.github.io/ai-mick/blog/one-sentence-advice/</link>
-      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/one-sentence-advice/</guid>
-      <pubDate>Thu, 13 Aug 2026 09:00:00 GMT</pubDate>
-      <description>After months of doing this daily, here&#x27;s the one line that would have saved me the most time.</description>
+      <title>The model doesn&#x27;t matter as much as you think</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/the-model-doesnt-matter-as-much/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/the-model-doesnt-matter-as-much/</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>A new one ships almost every week now. Here is why chasing the latest one is mostly wasted effort.</description>
     </item>
     <item>
-      <title>The courses are built the same way as the tools</title>
-      <link>https://mpacarroll.github.io/ai-mick/blog/courses-same-method/</link>
-      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/courses-same-method/</guid>
-      <pubDate>Mon, 10 Aug 2026 09:00:00 GMT</pubDate>
-      <description>Three self-paced courses just went up. Here is why they exist and what they are not.</description>
+      <title>Before you let an AI agent touch anything real, ask it this</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/before-you-let-an-agent-touch-anything/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/before-you-let-an-agent-touch-anything/</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>Autonomous AI tools are being handed real access faster than anyone is checking whether that is wise.</description>
+    </item>
+    <item>
+      <title>How to spot a staged AI demo</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/how-to-spot-a-staged-ai-demo/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/how-to-spot-a-staged-ai-demo/</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>The gap between a polished product video and the actual tool is often wider than you&#x27;d guess. Here is what to check.</description>
+    </item>
+    <item>
+      <title>The tool is not a substitute for saying the hard thing yourself</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/the-tool-is-not-the-hard-conversation/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/the-tool-is-not-the-hard-conversation/</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>AI can help you prepare for a difficult moment. It should never be the one having it for you.</description>
+    </item>
+    <item>
+      <title>Free tools versus the paid course: an honest answer</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/free-tools-versus-the-paid-course/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/free-tools-versus-the-paid-course/</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>If a free tool already solves it, buying the course is the wrong move, and I would rather tell you that than sell you something.</description>
+    </item>
+    <item>
+      <title>Never ask AI for one version. Ask for three.</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/ask-for-three/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/ask-for-three/</guid>
+      <pubDate>Mon, 03 Aug 2026 09:00:00 GMT</pubDate>
+      <description>One version invites you to settle. Three versions make you the editor.</description>
     </item>
     <item>
       <title>The benchmarks might be lying to you, and that is not a conspiracy theory</title>
@@ -28,11 +56,18 @@
       <description>A growing pile of research says the numbers used to rank AI models don&#x27;t measure what they claim to.</description>
     </item>
     <item>
-      <title>Never ask AI for one version. Ask for three.</title>
-      <link>https://mpacarroll.github.io/ai-mick/blog/ask-for-three/</link>
-      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/ask-for-three/</guid>
-      <pubDate>Mon, 03 Aug 2026 09:00:00 GMT</pubDate>
-      <description>One version invites you to settle. Three versions make you the editor.</description>
+      <title>The courses are built the same way as the tools</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/courses-same-method/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/courses-same-method/</guid>
+      <pubDate>Mon, 10 Aug 2026 09:00:00 GMT</pubDate>
+      <description>Three self-paced courses just went up. Here is why they exist and what they are not.</description>
+    </item>
+    <item>
+      <title>The best AI advice I know fits in one sentence</title>
+      <link>https://mpacarroll.github.io/ai-mick/blog/one-sentence-advice/</link>
+      <guid isPermaLink="true">https://mpacarroll.github.io/ai-mick/blog/one-sentence-advice/</guid>
+      <pubDate>Thu, 13 Aug 2026 09:00:00 GMT</pubDate>
+      <description>After months of doing this daily, here&#x27;s the one line that would have saved me the most time.</description>
     </item>
     <item>
       <title>The second brain was always procrastination. AI just proved it.</title>
