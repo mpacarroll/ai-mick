@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Look — spot the red flags before you act — Mick's Fair Dinkum AI</title>
+<link rel="canonical" href="https://mpacarroll.github.io/ai-mick/tools/second-look/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mick's Fair Dinkum AI">
+<meta property="og:title" content="Second Look — spot the red flags before you act — Mick's Fair Dinkum AI">
+<meta property="og:description" content="Paste a suspicious message and get a plain checklist of what to verify before you click, reply, or send anything. Free, private, no account.">
+<meta property="og:url" content="https://mpacarroll.github.io/ai-mick/tools/second-look/">
+<meta property="og:image" content="https://mpacarroll.github.io/ai-mick/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Second Look — spot the red flags before you act — Mick's Fair Dinkum AI">
+<meta name="twitter:description" content="Paste a suspicious message and get a plain checklist of what to verify before you click, reply, or send anything. Free, private, no account.">
+<meta name="twitter:image" content="https://mpacarroll.github.io/ai-mick/assets/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Second Look \u2014 spot the red flags before you act \u2014 Mick's Fair Dinkum AI", "description": "Paste a suspicious message and get a plain checklist of what to verify before you click, reply, or send anything. Free, private, no account.", "url": "https://mpacarroll.github.io/ai-mick/tools/second-look/"}</script>
+
+<meta name="description" content="Paste a suspicious message and get a plain checklist of what to verify before you click, reply, or send anything. Free, private, no account.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f5a34'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>M</text></svg>">
+<style>
+  :root{--green:#0f5a34;--green-deep:#0a3d24;--gold:#a9780a;--gold-bright:#c99a2e;
+    --paper:#faf8f0;--card:#fff;--ink:#182219;--muted:#586459;--line:#e4dfce;--warn:#8a4b2f;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color-scheme:light dark}
+  @media(prefers-color-scheme:dark){:root{--green:#3fa06a;--green-deep:#0c3b23;--gold:#d7b552;
+    --gold-bright:#e6c766;--paper:#141c16;--card:#1a241d;--ink:#e9efe9;--muted:#9aab9e;--line:#2a362d;--warn:#e0a483}}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55}
+  .band{height:10px;background:linear-gradient(90deg,var(--green),var(--gold-bright),var(--green))}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 60px}
+  .top{padding:22px 0 0;font-size:.92rem}
+  .top a{color:var(--green);text-decoration:none;font-weight:600}
+  header{padding:26px 0 8px}
+  h1{font-family:var(--serif);font-size:clamp(1.9rem,5vw,2.5rem);margin:.1em 0;color:var(--green-deep)}
+  @media(prefers-color-scheme:dark){h1{color:#d7e6db}}
+  .lede{color:var(--muted);font-size:1.1rem;max-width:56ch}
+  h2{font-family:var(--serif);font-size:1.2rem;margin:30px 0 8px;color:var(--green)}
+  label{display:block;font-weight:600;margin:14px 0 4px}
+  .hint{font-weight:400;color:var(--muted);font-size:.88rem}
+  textarea,input,select{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:9px;
+    background:var(--card);color:var(--ink);font:inherit}
+  textarea{min-height:120px;resize:vertical}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row > *{flex:1;min-width:200px}
+  .btn{background:var(--green);color:#fff;border:none;padding:13px 22px;border-radius:10px;
+    font:inherit;font-weight:600;cursor:pointer;margin-top:16px}
+  @media(prefers-color-scheme:dark){.btn{color:#08130c}}
+  .btn:hover{background:var(--green-deep)}
+  .out{margin-top:20px;display:none}
+  .out.on{display:block}
+  .flags{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--warn);
+    border-radius:10px;padding:16px 20px;margin:14px 0}
+  .flags h3{font-family:var(--serif);margin:0 0 10px;color:var(--warn);font-size:1.1rem}
+  .flags ul{margin:0;padding-left:20px}
+  .flags li{margin:6px 0}
+  pre{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;font-family:inherit;font-size:.94rem}
+  .copy{margin-top:10px;background:var(--card);border:1.5px solid var(--green);color:var(--green);
+    padding:9px 16px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
+  .never{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:20px 0}
+  .never h3{font-family:var(--serif);color:var(--green);margin:0 0 8px;font-size:1.05rem}
+  .never ul{margin:0;padding-left:20px}
+  .never li{margin:6px 0;color:var(--muted)}
+  .mc-cta{margin:34px 0 8px;padding:20px 22px;background:var(--card);border:1px solid var(--line);
+    border-left:3px solid var(--gold);border-radius:12px}
+  .mc-cta h3{font-family:var(--serif);font-size:1.15rem;margin:0 0 4px;color:var(--green)}
+  .mc-cta p{margin:0 0 12px;color:var(--muted);font-size:.94rem}
+  .mc-form{display:flex;gap:8px;flex-wrap:wrap;margin:0}
+  .mc-form input[type=email]{flex:1;min-width:200px}
+  .mc-hp{position:absolute;left:-9999px;width:1px;height:1px}
+  .mc-msg{width:100%;margin:8px 0 0;font-size:.9rem;font-weight:600;color:var(--green)}
+  footer{color:var(--muted);font-size:.85rem;padding:34px 0 20px;border-top:1px solid var(--line);margin-top:20px}
+  footer a{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="wrap">
+  <p class="top"><a href="../../">&larr; Mick's Fair Dinkum AI</a></p>
+  <header>
+    <h1>Second Look</h1>
+    <p class="lede">Paste the message that made you pause. Get an instant checklist of exactly what to verify before you click, reply, or send anything, plus a prompt to have any AI take a second look with you.</p>
+  </header>
+
+  <label for="msg">The message, email, or text <span class="hint">(paste as much of it as you have)</span></label>
+  <textarea id="msg" placeholder="Example: Your account has been suspended. Click here within 24 hours to verify your identity or it will be permanently closed..."></textarea>
+
+  <div class="row">
+    <div>
+      <label for="claims">Who it claims to be from <span class="hint">(optional)</span></label>
+      <select id="claims">
+        <option value="">Not sure / other</option>
+        <option>My bank or card company</option>
+        <option>An employer or recruiter</option>
+        <option>A government agency</option>
+        <option>Tech support</option>
+        <option>A delivery company</option>
+        <option>Someone I know online</option>
+        <option>A prize, lottery, or refund</option>
+      </select>
+    </div>
+    <div>
+      <label for="ask">What it wants you to do <span class="hint">(optional)</span></label>
+      <select id="ask">
+        <option value="">Not sure / other</option>
+        <option>Click a link</option>
+        <option>Send money or a gift card</option>
+        <option>Share a code sent to my phone</option>
+        <option>Share personal or account info</option>
+        <option>Download something</option>
+        <option>Call a number</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn" id="go">Take a second look</button>
+
+  <div class="out" id="out">
+    <div class="flags" id="staticFlags"></div>
+    <h2>Ask any AI to look with you</h2>
+    <p style="color:var(--muted);font-size:.94rem;margin-top:-6px">Paste this into any AI assistant you already use. It never leaves your browser until you paste it yourself.</p>
+    <pre id="prompt"></pre>
+    <button class="copy" id="copyBtn">Copy the prompt</button>
+  </div>
+
+  <div class="never">
+    <h3>Three things that are never legitimate</h3>
+    <ul>
+      <li>A real bank, agency, or employer will never ask you to pay them in gift cards.</li>
+      <li>Nobody legitimate needs you to read them a one-time code that was just texted to you.</li>
+      <li>Urgency is a tactic, not a fact. "Act in the next hour or else" is the single most common pressure line in scams, precisely because it works.</li>
+    </ul>
+  </div>
+
+  <section class="mc-cta">
+    <h3>One useful thing a week</h3>
+    <p>Free tools and plain-language AI, by email. No hype, nothing to sell you first.</p>
+    <form class="mc-form" data-source="tool-second-look" novalidate>
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email address" required>
+      <input type="text" name="website" class="mc-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn" style="margin-top:0">Send it to me</button>
+      <p class="mc-msg" role="status"></p>
+    </form>
+  </section>
+
+  <footer>
+    Free and private. Built by Mick Cairn. This is a critical-thinking aid, not legal, financial, or law-enforcement advice. If you already sent money or shared account access, contact your bank and the platform involved right away. <a href="../../">The hub</a>
+  </footer>
+</div>
+<script>
+function esc(s){return (s||"").trim();}
+document.getElementById("go").addEventListener("click", function(){
+  var msg = esc(document.getElementById("msg").value);
+  if(!msg){ alert("Paste the message first."); return; }
+  var claims = document.getElementById("claims").value;
+  var ask = document.getElementById("ask").value;
+
+  var flags = [];
+  var lower = msg.toLowerCase();
+  if(/urgent|immediately|within \d+ hours?|act now|expires? (today|soon)|final notice/.test(lower)){
+    flags.push("Uses urgency or a countdown to stop you from thinking it through. That pressure is the tactic, not a real deadline.");
+  }
+  if(/gift card|itunes|google play card|wire transfer|western union|crypto|bitcoin/.test(lower)){
+    flags.push("Asks for payment in a form no legitimate organization uses (gift cards, wire transfer, or crypto). This alone is close to a guarantee.");
+  }
+  if(/verify your (account|identity)|confirm your (details|password|account)|click here|log ?in to (confirm|verify)/.test(lower)){
+    flags.push("Asks you to click a link and log in to \"verify\" something. Go to the real site or app yourself instead of clicking through.");
+  }
+  if(/one.time code|verification code|sent to your phone|read (me|us) the code/.test(lower)){
+    flags.push("Asks for a one-time code. No legitimate company or agency ever needs you to read one back to them.");
+  }
+  if(/suspended|locked|unusual activity|unauthorized/.test(lower)){
+    flags.push("Claims your account is suspended or under threat. Check the real account directly (typed URL or official app), not through this message.");
+  }
+  if(/won|winner|prize|refund|inheritance/.test(lower)){
+    flags.push("Involves money you did not expect (a prize, refund, or windfall). Unexpected money almost always means the ask comes after, not before.");
+  }
+  if(ask === "Send money or a gift card"){
+    flags.push("You said this is asking for money or a gift card directly. Stop before sending anything and verify through a channel you looked up yourself, not one the message gave you.");
+  }
+  if(ask === "Share a code sent to my phone"){
+    flags.push("You said it wants a code from your phone. Do not share it. This is one of the most reliable scam signals there is.");
+  }
+  if(flags.length === 0){
+    flags.push("No obvious red-flag phrases were detected in the text. That does not mean it is safe, only that it did not match the common patterns. Still verify independently before acting, especially if money, a code, or a login is involved.");
+  }
+
+  var html = "<h3>What stood out</h3><ul>" + flags.map(function(f){return "<li>"+f.replace(/</g,"&lt;")+"</li>";}).join("") + "</ul>";
+  document.getElementById("staticFlags").innerHTML = html;
+
+  var context = "";
+  if(claims) context += "It claims to be from: " + claims + ". ";
+  if(ask) context += "It is asking me to: " + ask + ". ";
+
+  var prompt = "I received the message below and it made me pause. Act as a careful, skeptical friend, not a lawyer or the police. "
+    + context
+    + "Read it and tell me: 1) the specific phrases that are red flags and why, 2) what a legitimate version of this message would look like instead, 3) exactly what to check before I respond (for example, look up the real phone number or website myself rather than using the one in the message), and 4) whether you think I should ignore it, verify it independently, or report it, and to whom. Do not soften this to be polite if it looks like a scam.\n\nThe message:\n\"\"\"\n" + msg + "\n\"\"\"";
+
+  document.getElementById("prompt").textContent = prompt;
+  document.getElementById("out").classList.add("on");
+  document.getElementById("out").scrollIntoView({behavior:"smooth", block:"nearest"});
+});
+
+document.getElementById("copyBtn").addEventListener("click", function(){
+  navigator.clipboard.writeText(document.getElementById("prompt").textContent);
+  this.textContent = "Copied";
+  var self = this;
+  setTimeout(function(){ self.textContent = "Copy the prompt"; }, 1500);
+});
+
+(function(){
+  var f=document.querySelector('.mc-form'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=f.querySelector('.mc-msg'), btn=f.querySelector('button[type=submit]');
+    var email=(f.email.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Please enter a valid email.'; return; }
+    if(f.website.value){ msg.textContent='Thanks — you’re on the list.'; return; }
+    btn.disabled=true; msg.textContent='Adding you…';
+    fetch('https://join.micksfairdinkumai.com/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,source:f.dataset.source})})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(d){
+        if(d && d.ok){ msg.textContent='Thanks — you’re on the list.'; f.email.value=''; }
+        else { msg.textContent=(d && d.error)?d.error:'Something went wrong. Try again.'; btn.disabled=false; }
+      })
+      .catch(function(){ msg.textContent='Could not reach the server. Try again shortly.'; btn.disabled=false; });
+  });
+})();
+</script>
+</body>
+</html>
