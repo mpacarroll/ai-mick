@@ -7,3 +7,5 @@ The home page for Mick: free tools, plain-language guides, field notes, and how 
 - The two browser tools it features stay no-tracking; only this hub measures conversion, and only once you connect an analytics provider.
 
 Wiring (email, analytics, payment links) is placeholder-marked in `index.html` — see `SETUP.md`. MIT licensed.
+
+Not affiliated with any employer.
