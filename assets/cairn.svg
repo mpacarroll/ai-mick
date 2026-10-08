@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Mick Cairn: a cairn of five stacked trail stones">
+  <ellipse cx="32" cy="54" rx="23" ry="7.5" fill="#6f7882"/>
+  <ellipse cx="30" cy="42.5" rx="16.5" ry="6" fill="#14573d" transform="rotate(-4 30 42.5)"/>
+  <ellipse cx="34" cy="32" rx="11.5" ry="5" fill="#b8ad8e" transform="rotate(5 34 32)"/>
+  <ellipse cx="31" cy="23.5" rx="7.5" ry="4" fill="#c9a227"/>
+  <ellipse cx="32.5" cy="16.5" rx="4.2" ry="3" fill="#2f3a33"/>
+</svg>

@@ -3,440 +3,433 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mick Cairn — simple tools that work, no hype</title>
+<title>Mick Cairn: simple tools that work, no hype</title>
 <link rel="canonical" href="https://mpacarroll.github.io/ai-mick/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mick's Fair Dinkum AI">
-<meta property="og:title" content="Mick Cairn — simple tools that work, no hype">
+<meta property="og:title" content="Mick Cairn: simple tools that work, no hype">
 <meta property="og:description" content="Free, private tools and plain-language guides for getting genuinely good at AI and life. Built in the open by Mick Cairn.">
 <meta property="og:url" content="https://mpacarroll.github.io/ai-mick/">
 <meta property="og:image" content="https://mpacarroll.github.io/ai-mick/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mick Cairn — simple tools that work, no hype">
+<meta name="twitter:title" content="Mick Cairn: simple tools that work, no hype">
 <meta name="twitter:description" content="Free, private tools and plain-language guides for getting genuinely good at AI and life. Built in the open by Mick Cairn.">
 <meta name="twitter:image" content="https://mpacarroll.github.io/ai-mick/assets/og-image.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Mick Cairn \u2014 simple tools that work, no hype", "description": "Free, private tools and plain-language guides for getting genuinely good at AI and life. Built in the open by Mick Cairn.", "url": "https://mpacarroll.github.io/ai-mick/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Mick Cairn: simple tools that work, no hype", "description": "Free, private tools and plain-language guides for getting genuinely good at AI and life. Built in the open by Mick Cairn.", "url": "https://mpacarroll.github.io/ai-mick/"}</script>
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f5a34'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>M</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f5a34'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>M</text></svg>">
+<link rel="icon" href="assets/cairn.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="description" content="Free, private tools and plain-language guides for getting genuinely good at AI and life. Built in the open by Mick Cairn.">
 <!--
-  ANALYTICS PLACEHOLDER (cookieless, hub-only — the free tools stay no-tracking).
+  ANALYTICS PLACEHOLDER (cookieless, hub-only; the free tools stay no-tracking).
   Add ONE of these in <head> after you pick a provider (see SETUP.md):
     <script defer data-domain="YOURDOMAIN" src="https://plausible.io/js/script.js"></script>
     or GoatCounter / Cloudflare Web Analytics snippet.
   Funnel events are marked with data-funnel="..." on the CTAs below; wire them per SETUP.md.
 -->
+<link rel="preload" href="assets/fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/atkinson-hyperlegible-next.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* Self-hosted, SIL Open Font License 1.1; license files sit beside the fonts. */
+  @font-face{font-family:"Zilla Slab"; font-style:normal; font-weight:500; font-display:swap; src:url(assets/fonts/zilla-slab-500.woff2) format("woff2");}
+  @font-face{font-family:"Zilla Slab"; font-style:normal; font-weight:700; font-display:swap; src:url(assets/fonts/zilla-slab-700.woff2) format("woff2");}
+  @font-face{font-family:"Atkinson Hyperlegible Next"; font-style:normal; font-weight:200 800; font-display:swap; src:url(assets/fonts/atkinson-hyperlegible-next.woff2) format("woff2");}
+  @font-face{font-family:"Atkinson Hyperlegible Mono"; font-style:normal; font-weight:200 800; font-display:swap; src:url(assets/fonts/atkinson-hyperlegible-mono.woff2) format("woff2");}
+
+  /* Layout: the whole page is cut from Mick's green and gold tartan, washed down;
+     every section is a woven label stitched onto it. */
   :root{
-    --green:#0f5a34; --green-deep:#0a3d24; --green-ink:#14261c;
-    --gold:#a9780a; --gold-bright:#c99a2e; --gold-soft:#e8d9a8;
-    --paper:#faf8f0; --card:#ffffff; --ink:#182219; --muted:#586459;
-    --line:#e4dfce; --line-soft:#efeadb;
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
-    color-scheme:light dark;
+    /* the cloth: the same in both themes, it is the material */
+    --sett-ground:#6b8574; --sett-band:#566f5f; --sett-dark:#465c4e;
+    --sett-line:#e6dcc2; --sett-fleck:#c2a45c; --selvedge:#33463b;
+    /* the labels */
+    --label:#eee8d6; --label-2:#e4dcc6; --ink:#17221b; --muted:#525b50;
+    --stitch:#9a9277; --rule:#d3caae;
+    --accent:#0f5a34; --accent-ink:#f6f1e2; --link:#0f5a34; --mark:#856007;
+    --display:"Zilla Slab",Rockwell,"Roboto Slab",Georgia,serif;
+    --body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    color-scheme:light;
   }
-  @media (prefers-color-scheme:dark){
-    :root{
-      --green:#3fa06a; --green-deep:#0c3b23; --green-ink:#d7e6db;
-      --gold:#d7b552; --gold-bright:#e6c766; --gold-soft:#4a4324;
-      --paper:#141c16; --card:#1a241d; --ink:#e9efe9; --muted:#9aab9e;
-      --line:#2a362d; --line-soft:#212c24;
-    }
-  }
-  :root[data-theme="light"]{
-    --green:#0f5a34; --green-deep:#0a3d24; --green-ink:#14261c; --gold:#a9780a; --gold-bright:#c99a2e; --gold-soft:#e8d9a8;
-    --paper:#faf8f0; --card:#ffffff; --ink:#182219; --muted:#586459; --line:#e4dfce; --line-soft:#efeadb;
-  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --label:#17201a; --label-2:#1e2a22; --ink:#ece6d4; --muted:#a9b3a6;
+    --stitch:#4d5a4f; --rule:#2c3a30;
+    --accent:#d7b552; --accent-ink:#14200f; --link:#e0c66d; --mark:#d7b552;
+    color-scheme:dark;
+  }}
   :root[data-theme="dark"]{
-    --green:#3fa06a; --green-deep:#0c3b23; --green-ink:#d7e6db; --gold:#d7b552; --gold-bright:#e6c766; --gold-soft:#4a4324;
-    --paper:#141c16; --card:#1a241d; --ink:#e9efe9; --muted:#9aab9e; --line:#2a362d; --line-soft:#212c24;
+    --label:#17201a; --label-2:#1e2a22; --ink:#ece6d4; --muted:#a9b3a6;
+    --stitch:#4d5a4f; --rule:#2c3a30;
+    --accent:#d7b552; --accent-ink:#14200f; --link:#e0c66d; --mark:#d7b552;
+    color-scheme:dark;
   }
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  /* the tartan lives on the body as the dark FRAME around the light sheet */
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
   body{
-    margin:0; color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
-    background-color:var(--paper);
+    margin:0; color:var(--ink); font-family:var(--body); font-size:1.06rem; line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding-inline:clamp(16px,3vw,32px); padding-block:16px 40px;
+    background-color:var(--sett-ground);
     background-image:
-      repeating-linear-gradient(90deg, color-mix(in srgb,var(--green) 8%,transparent) 0 1px, transparent 1px 26px),
-      repeating-linear-gradient(0deg, color-mix(in srgb,var(--green) 8%,transparent) 0 1px, transparent 1px 26px);
+      repeating-linear-gradient(45deg, rgba(0,0,0,.045) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg,
+        color-mix(in srgb,var(--sett-band) 50%,transparent) 0 22px, transparent 22px 34px,
+        color-mix(in srgb,var(--sett-line) 28%,transparent) 34px 35px, transparent 35px 52px,
+        color-mix(in srgb,var(--sett-dark) 35%,transparent) 52px 64px, transparent 64px 76px,
+        color-mix(in srgb,var(--sett-fleck) 45%,transparent) 76px 78px, transparent 78px 96px),
+      repeating-linear-gradient(0deg,
+        color-mix(in srgb,var(--sett-band) 40%,transparent) 0 22px, transparent 22px 34px,
+        color-mix(in srgb,var(--sett-line) 22%,transparent) 34px 35px, transparent 35px 52px,
+        color-mix(in srgb,var(--sett-dark) 30%,transparent) 52px 64px, transparent 64px 76px,
+        color-mix(in srgb,var(--sett-fleck) 38%,transparent) 76px 78px, transparent 78px 96px);
   }
-  a{ color:var(--green); }
+  a{color:var(--link)}
+  :focus-visible{outline:3px solid var(--mark); outline-offset:2px}
+  [id]{scroll-margin-top:16px}
+  .page{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:22px}
 
-  /* tartan reduced to a horizontal top banner + one divider */
-  .tartan-band{ height:22px; border-top:2px solid var(--gold); border-bottom:2px solid var(--gold);
-    background-color:#1a4a31;
-    background-image:
-      repeating-linear-gradient(90deg, rgba(0,0,0,.14) 0 3px, transparent 3px 46px),
-      repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 3px, transparent 3px 46px),
-      repeating-linear-gradient(90deg, transparent 0 34px, rgba(184,134,11,.55) 34px 37px, transparent 37px 46px),
-      repeating-linear-gradient(0deg, transparent 0 34px, rgba(184,134,11,.55) 34px 37px, transparent 37px 46px),
-      repeating-linear-gradient(90deg, transparent 0 10px, rgba(232,217,168,.42) 10px 11px, transparent 11px 46px),
-      repeating-linear-gradient(0deg, transparent 0 10px, rgba(232,217,168,.42) 10px 11px, transparent 11px 46px);
-  }
-  .tartan-band.divider{ height:16px; margin:0; }
+  /* selvedge: the nav */
+  .selvedge{display:flex; align-items:center; gap:18px; padding:12px 18px; background:var(--selvedge);
+    color:var(--sett-line); border-bottom:3px solid var(--sett-fleck); border-radius:4px 4px 0 0}
+  .brand{display:flex; align-items:center; gap:10px; margin-right:auto; color:inherit; text-decoration:none}
+  .brand svg{width:38px; height:38px; flex:none}
+  .brand b{font-family:var(--display); font-size:1.35rem; font-weight:700; display:block; line-height:1}
+  .brand .sub{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; opacity:.8}
+  .selvedge nav{display:flex; gap:18px; flex-wrap:wrap}
+  .selvedge nav a{color:var(--sett-line); text-decoration:none; font-size:.95rem; opacity:.85}
+  .selvedge nav a:hover{opacity:1; text-decoration:underline}
+  @media (max-width:640px){ .selvedge nav a:not(.keep){display:none} }
 
-  /* the light SHEET, matted inside the tartan frame with a gold hairline */
-  .sheet{ width:100%; }
-  .goldrule{ height:4px; background:linear-gradient(90deg,var(--gold),var(--gold-bright),var(--gold)); }
-  .wrap{ max-width:1000px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
+  /* the woven label */
+  .label{background:var(--label); border-radius:4px; position:relative; padding:clamp(22px,4vw,44px);
+    box-shadow:0 1px 0 rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.14)}
+  .label::after{content:""; position:absolute; inset:9px; border:1.5px dashed var(--stitch); border-radius:2px; pointer-events:none}
+  .label > *{position:relative; z-index:1}
+  .tag{font-family:var(--mono); font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0}
+  h1,h2,h3{font-family:var(--display); text-wrap:balance; color:var(--ink)}
+  h1{font-size:clamp(2.3rem,5vw,3.6rem); line-height:1.02; font-weight:700; margin:.15em 0 .25em; letter-spacing:-.01em}
+  h2{font-size:clamp(1.7rem,3vw,2.2rem); line-height:1.1; font-weight:700; margin:0 0 .3em}
+  h3{font-size:1.3rem; line-height:1.2; font-weight:700; margin:0}
+  .lede{font-size:1.15rem; color:var(--muted); max-width:44ch; margin:0}
 
-  nav{ border-bottom:1px solid var(--line); background:var(--paper); }
-  nav .wrap{ display:flex; align-items:center; gap:20px; height:62px; }
-  .brand{ display:flex; align-items:center; gap:11px; margin-right:auto; text-decoration:none; }
-  .crest{ width:34px; height:34px; border-radius:7px; flex:none; display:grid; place-items:center;
-    color:var(--gold-bright); font-family:var(--serif); font-weight:700; font-size:1.15rem; border:1.5px solid var(--gold); background:color-mix(in srgb,var(--green) 10%,transparent); }
-  .brand .nm{ line-height:1.05; }
-  .brand .nm b{ font-family:var(--serif); font-size:1.3rem; letter-spacing:-.01em; color:var(--ink); display:block; }
-  .brand .nm span{ font-family:var(--mono); font-size:.57rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
-  nav a.link{ color:var(--ink); text-decoration:none; font-size:.94rem; opacity:.82; }
-  nav a.link:hover{ opacity:1; color:var(--green); }
-  nav .cta{ background:var(--green); color:#fff; padding:8px 14px; border-radius:8px; text-decoration:none; font-weight:600; font-size:.9rem; }
-  nav .cta:hover{ background:var(--green-deep); }
-  @media (prefers-color-scheme:dark){ nav .cta{ color:#08130c; } }
-  @media (max-width:640px){ nav a.link{ display:none; } }
+  /* hero */
+  .hero{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(22px,4vw,48px); align-items:start}
+  .hero .more{margin-top:22px; font-weight:700}
+  @media (max-width:820px){ .hero{grid-template-columns:1fr; gap:18px} .hero .more{margin-top:12px} .tool textarea{min-height:84px} .lede{font-size:1.05rem} }
+  .tool{background:var(--label-2); border:1.5px solid var(--rule); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:12px; min-width:0}
+  .tool .head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap}
+  .tool .head h2{font-size:1.4rem; margin:0}
+  .example{font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mark)}
+  .tool label,.signup label{font-weight:700; font-size:.92rem}
+  .tool textarea,.tool select,.field{width:100%; font:inherit; color:var(--ink); background:var(--label);
+    border:1.5px solid var(--rule); border-radius:4px; padding:10px 12px}
+  .tool textarea{min-height:104px; resize:vertical; font-size:.98rem}
+  .btn{font:inherit; font-weight:700; background:var(--accent); color:var(--accent-ink); border:0; border-radius:4px;
+    padding:12px 20px; cursor:pointer; align-self:flex-start; font-size:1.02rem; text-decoration:none; display:inline-block}
+  .btn:hover{filter:brightness(1.1)}
+  .btn:disabled{opacity:.6; cursor:default}
+  .flags{border-top:1.5px solid var(--rule); padding-top:12px}
+  .flags p{margin:0 0 6px; font-family:var(--mono); font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .flags ol{margin:0; padding-left:1.3em; display:grid; gap:8px; font-size:.97rem}
+  .flags li::marker{font-family:var(--mono); color:var(--mark); font-weight:600}
+  .private{font-size:.85rem; color:var(--muted); margin:0}
 
-  section{ padding:54px 0; border-bottom:1px solid var(--line-soft); }
-  h1{ font-family:var(--serif); font-weight:600; font-size:clamp(2.1rem,5vw,3.1rem); line-height:1.07; letter-spacing:-.015em; margin:.15em 0; color:var(--green-deep); text-wrap:balance; }
-  @media (prefers-color-scheme:dark){ h1{ color:var(--green-ink); } }
-  h2{ font-family:var(--serif); font-weight:600; font-size:1.7rem; letter-spacing:-.01em; margin:0 0 .3em; color:var(--ink); }
-  .lede{ font-size:1.2rem; color:var(--muted); max-width:48ch; }
-  .eyebrow{ display:inline-block; font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--gold); background:color-mix(in srgb,var(--gold) 12%,transparent); border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);
-    padding:5px 12px; border-radius:999px; }
+  /* the swatch book of tools */
+  .book{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 40px; margin-top:20px}
+  @media (max-width:760px){ .book{grid-template-columns:1fr} }
+  .group{display:flex; flex-direction:column; min-width:0}
+  .group > .tag{border-bottom:1.5px solid var(--rule); padding-bottom:6px; margin-top:18px}
+  .row{display:grid; grid-template-columns:14px minmax(0,1fr) auto; gap:4px 12px; align-items:baseline; padding:12px 0;
+    border-bottom:1px dashed var(--rule); text-decoration:none; color:inherit}
+  .row:hover h3{color:var(--link); text-decoration:underline}
+  .sw{width:14px; height:14px; border-radius:2px; align-self:center;
+    background:repeating-linear-gradient(90deg,var(--sett-band) 0 4px,var(--sett-ground) 4px 7px,var(--sett-fleck) 7px 8px),var(--sett-ground)}
+  .row p{grid-column:2 / 3; margin:0; color:var(--muted); font-size:.95rem}
+  .row .open{grid-row:1; grid-column:3; font-family:var(--mono); font-size:.8rem; color:var(--link); white-space:nowrap}
 
-  /* HERO — light, with a faint tartan wash behind the type */
-  .hero{ position:relative; }
-  .hero .inner{ position:relative; padding:58px 0 56px; }
-  .btn{ display:inline-block; background:var(--green); color:#fff; text-decoration:none; padding:12px 20px; border-radius:10px; font-weight:600; border:none; font:inherit; font-weight:600; cursor:pointer; }
-  .btn:hover{ background:var(--green-deep); }
-  @media (prefers-color-scheme:dark){ .btn{ color:#08130c; } }
-  .btn.gold{ background:var(--gold); color:#fff; }
-  .btn.gold:hover{ background:var(--gold-bright); }
-  @media (prefers-color-scheme:dark){ .btn.gold{ color:#1a1305; } }
-  .btn.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--line); }
-  .btn.ghost:hover{ border-color:var(--green); color:var(--green); }
-  .cta-row{ margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
-  form.email{ display:flex; gap:8px; margin-top:26px; max-width:470px; flex-wrap:wrap; }
-  form.email input{ flex:1; min-width:190px; padding:12px 13px; border-radius:10px; border:1.5px solid var(--line); background:var(--card); color:var(--ink); font:inherit; }
-  form.email input:focus{ outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold); }
-  .fine{ color:var(--muted); font-size:.85rem; width:100%; margin-top:2px; }
+  /* notes, courses, work */
+  .two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px}
+  @media (max-width:820px){ .two{grid-template-columns:1fr} }
+  .notes{list-style:none; margin:16px 0 0; padding:0}
+  .notes li{padding:12px 0; border-bottom:1px dashed var(--rule)}
+  .notes a{font-family:var(--display); font-weight:700; font-size:1.15rem; color:var(--ink); text-decoration:none}
+  .notes a:hover{color:var(--link); text-decoration:underline}
+  .notes span{display:block; color:var(--muted); font-size:.95rem}
+  .price{list-style:none; margin:16px 0 0; padding:0}
+  .price li{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 16px; padding:12px 0; border-bottom:1px dashed var(--rule)}
+  .price b{font-family:var(--display); font-size:1.12rem}
+  .price b a{color:var(--ink); text-decoration:none}
+  .price b a:hover{color:var(--link); text-decoration:underline}
+  .price .amt{font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--mark); font-weight:600; font-size:.92rem; text-align:right}
+  .price span:not(.amt){grid-column:1 / -1; color:var(--muted); font-size:.95rem}
+  @media (max-width:520px){ .price li{grid-template-columns:1fr} .price .amt{text-align:left} }
+  .after{margin:16px 0 0; display:flex; flex-wrap:wrap; gap:6px 18px; font-weight:700}
 
-  .grid{ display:grid; gap:16px; grid-template-columns:1fr 1fr; margin-top:26px; }
-  @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
-  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 20px 20px 22px; position:relative; }
-  .card::before{ content:""; position:absolute; left:0; top:16px; bottom:16px; width:3px; border-radius:0 3px 3px 0; background:var(--gold); opacity:.85; }
-  .card h3{ font-family:var(--serif); margin:.1em 0 .35em; font-size:1.2rem; }
-  .card p{ margin:.2em 0 1em; color:var(--muted); font-size:.97rem; }
-  .chip{ display:inline-block; background:color-mix(in srgb,var(--gold) 18%,transparent); color:var(--gold);
-    font-family:var(--mono); font-size:.65rem; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:999px; margin-bottom:12px; }
-  @media (prefers-color-scheme:dark){ .chip{ color:var(--gold-bright); } }
-  .btn.sm{ padding:9px 15px; font-size:.9rem; }
+  /* inquiry */
+  .inquire{margin-top:22px; border-top:1.5px solid var(--rule); padding-top:18px; display:grid; gap:10px; max-width:560px}
+  .inquire h3{font-size:1.2rem}
+  .inquire p{margin:0}
+  textarea.field{min-height:110px; resize:vertical}
+  .hp{position:absolute; left:-9999px; width:1px; height:1px}
+  .status{font-weight:700; margin:0}
 
-  .group-label{ font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--green);
-    margin:38px 0 4px; display:flex; align-items:center; gap:10px; font-weight:700; }
-  @media (prefers-color-scheme:dark){ .group-label{ color:var(--gold-bright); } }
-  .group-label::before{ content:""; width:16px; height:3px; border-radius:2px; background:var(--gold); }
-  .group-note{ color:var(--muted); font-size:.96rem; max-width:58ch; margin:2px 0 0; }
-  .group-note b{ color:var(--ink); }
+  /* who's Mick */
+  .who{display:grid; grid-template-columns:200px minmax(0,1fr); gap:clamp(20px,4vw,48px); align-items:center}
+  @media (max-width:640px){ .who{grid-template-columns:1fr} .who svg{width:140px} }
+  .who svg{width:100%; height:auto}
+  .who p{max-width:60ch}
+  .pull{font-family:var(--display); font-size:1.3rem; line-height:1.35; border-left:4px solid var(--mark); padding-left:16px}
 
-  /* trust strip under the hero CTA */
-  .trust{ margin-top:20px; display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; }
-  .trust span{ font-family:var(--mono); font-size:.72rem; letter-spacing:.04em; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  .trust span::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); flex:none; }
+  /* signup */
+  .signup{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; max-width:520px}
+  .signup label{flex-basis:100%}
+  .signup .field{flex:1 1 220px; min-width:0}
+  .signup .btn{align-self:stretch}
+  .fine{font-size:.85rem; color:var(--muted); margin:8px 0 0}
 
-  /* "where should you start?" path chooser */
-  #start{ scroll-margin-top:10px; background:color-mix(in srgb,var(--green) 5%,var(--paper)); }
-  [id]{ scroll-margin-top:12px; }
-  .paths{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
-  @media (max-width:720px){ .paths{ grid-template-columns:1fr; } }
-  .path{ background:var(--card); border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:14px; padding:20px; display:flex; flex-direction:column; }
-  .path .who{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--green); font-weight:700; }
-  @media (prefers-color-scheme:dark){ .path .who{ color:var(--gold-bright); } }
-  .path h3{ font-family:var(--serif); font-size:1.16rem; margin:8px 0 7px; color:var(--ink); line-height:1.2; }
-  .path p{ color:var(--muted); font-size:.94rem; margin:0 0 16px; flex:1; }
-  .path a.go{ font-weight:600; color:var(--green); text-decoration:none; font-size:.95rem; }
-  .path a.go:hover{ text-decoration:underline; }
-  @media (prefers-color-scheme:dark){ .path a.go{ color:var(--gold-bright); } }
+  footer{color:var(--sett-line); text-align:center; font-size:.9rem; background:var(--selvedge); padding:16px; border-radius:4px}
+  footer a{color:var(--sett-line)}
 
-  ul.takes{ list-style:none; padding:0; margin:24px 0 0; }
-  ul.takes li{ padding:16px 0 16px 20px; border-bottom:1px solid var(--line-soft); position:relative; }
-  ul.takes li::before{ content:""; position:absolute; left:0; top:21px; width:8px; height:8px; background:var(--gold); border-radius:2px; }
-  ul.takes b{ color:var(--ink); font-family:var(--serif); font-size:1.1rem; }
-  .about p{ max-width:62ch; }
-  .about .pull{ font-family:var(--serif); font-size:1.18rem; color:var(--green-deep); border-left:3px solid var(--gold); padding-left:16px; margin:18px 0; }
-  @media (prefers-color-scheme:dark){ .about .pull{ color:var(--green-ink); } }
-
-  footer{ border-top:1px solid var(--line); }
-  footer .inner{ padding:32px 0 40px; color:var(--muted); font-size:.9rem; }
-  footer a{ color:var(--green); }
-  .price{color:var(--green);font-size:.95rem;margin:.4em 0 .8em}
-  @media(prefers-color-scheme:dark){.price{color:var(--gold-bright)}}
-  .takes a{color:inherit;text-decoration:none}
-  .takes a:hover{color:var(--green);text-decoration:underline}
+  /* the one motion moment: the cairn in the selvedge stacks on load */
+  @keyframes settle{from{transform:translateY(-6px); opacity:.35} to{transform:none; opacity:1}}
+  .brand .stone{animation:settle .45s cubic-bezier(.3,1.4,.5,1) both}
+  .brand .s2{animation-delay:.12s} .brand .s3{animation-delay:.24s} .brand .s4{animation-delay:.36s} .brand .s5{animation-delay:.48s}
+  @media (prefers-reduced-motion:reduce){ .brand .stone{animation:none} }
 </style>
 <link rel="alternate" type="application/rss+xml" title="Field notes" href="blog/feed.xml">
 </head>
 <body>
+<div class="page">
 
-<div class="tartan-band"></div>
-<div class="sheet">
-  <nav><div class="wrap">
-    <a class="brand" href="#home">
-      <span class="crest">M</span>
-      <span class="nm"><b>Mick Cairn</b><span>Fair Dinkum AI</span></span>
-    </a>
-    <a href="#start" class="link">Start</a>
-    <a href="#tools" class="link">Tools</a>
-    <a href="#notes" class="link">Notes</a>
-    <a href="#work" class="link">Work</a>
-    <a href="#courses" class="link">Courses</a>
-    <a href="#books" class="link">Books</a>
-    <a href="#about" class="link">About</a>
-    <a href="#email" class="cta" data-funnel="nav-email">Free email</a>
-  </div></nav>
+<header class="selvedge">
+  <a class="brand" href="#home" aria-label="Mick Cairn, home">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <ellipse class="stone s1" cx="32" cy="54" rx="23" ry="7.5" fill="#8a929b"/>
+      <ellipse class="stone s2" cx="30" cy="42.5" rx="16.5" ry="6" fill="#2a8a5c" transform="rotate(-4 30 42.5)"/>
+      <ellipse class="stone s3" cx="34" cy="32" rx="11.5" ry="5" fill="#e8d9a8" transform="rotate(5 34 32)"/>
+      <ellipse class="stone s4" cx="31" cy="23.5" rx="7.5" ry="4" fill="#c9a227"/>
+      <ellipse class="stone s5" cx="32.5" cy="16.5" rx="4.2" ry="3" fill="#a7aeb5"/>
+    </svg>
+    <span><b>Mick Cairn</b><span class="sub">Fair Dinkum AI</span></span>
+  </a>
+  <nav aria-label="Sections">
+    <a class="keep" href="#tools">Tools</a><a href="#notes">Notes</a><a href="#courses">Courses</a><a href="#work">Work with me</a><a href="#about">Who's Mick</a>
+  </nav>
+</header>
 
-  <!-- HERO / HOME -->
-  <section id="home" class="hero">
-    <div class="inner"><div class="wrap">
-      <span class="eyebrow">Pro-AI · Anti-hype</span>
-      <h1>Simple tools that work.<br>No hype, nothing to sell you first.</h1>
-      <p class="lede">Whether you have never touched AI or you build with it every day, there's a door here for you. Free tools, plain-language guides, and nothing to sell you until you decide I'm worth it.</p>
-      <div class="cta-row">
-        <a class="btn gold" href="#start" data-funnel="tool-try">Find where to start</a>
-        <a class="btn ghost" href="https://mpacarroll.github.io/ai-foundations/tool/" data-funnel="tool-try">Try a tool now</a>
-      </div>
-      <div class="trust"><span>Free</span><span>No account</span><span>Nothing to sell you first</span></div>
-      <form class="email" id="email" method="post" action="https://join.micksfairdinkumai.com/subscribe" data-funnel="email-signup">
-        <input type="email" name="email" required placeholder="your email">
-        <button class="btn" type="submit">Get one useful thing a week</button>
-        <div class="fine">No spam. One short, useful email. Unsubscribe anytime.</div>
-      </form>
-    </div></div>
+<!-- HERO: one ask, the tool itself -->
+<section class="label" id="home">
+  <div class="hero">
+    <div>
+      <p class="tag">Free · private · no account</p>
+      <h1>Simple tools that work. Try one right now.</h1>
+      <p class="lede">They run in your browser and send nothing anywhere. This one takes a second look at a message that made you pause.</p>
+      <p class="more"><a href="#tools">Or see every free tool</a></p>
+    </div>
+    <form class="tool" id="sl" novalidate>
+      <div class="head"><h2>Second Look</h2><span class="example" id="sl-example">Example message</span></div>
+      <label for="sl-msg">The message</label>
+      <textarea id="sl-msg">FINAL NOTICE: your parcel could not be delivered. Your account will be suspended within 24 hours. Click here to verify your account and pay the $1.99 redelivery fee.</textarea>
+      <label for="sl-ask">What it wants you to do</label>
+      <select id="sl-ask">
+        <option value="">Not sure / other</option>
+        <option selected>Click a link</option>
+        <option>Send money or a gift card</option>
+        <option>Share a code sent to my phone</option>
+        <option>Share personal or account info</option>
+        <option>Download something</option>
+        <option>Call a number</option>
+      </select>
+      <button class="btn" type="submit" data-funnel="tool-try">Take a second look</button>
+      <div class="flags" aria-live="polite"><p>What stood out</p><ol id="sl-out"></ol></div>
+      <p class="private">Checked on this page; nothing is sent. The <a href="tools/second-look/" data-funnel="tool-try">full Second Look</a> also writes a prompt you can paste into any AI.</p>
+    </form>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="label" id="tools">
+  <span id="start"></span>
+  <p class="tag">The swatch book</p>
+  <h2>Every free tool</h2>
+  <p class="lede">The professionals you can't always afford, made free and plain. Pick the one that sounds like you.</p>
+  <div class="book">
+    <div class="group">
+      <p class="tag">New to AI, start here</p>
+      <a class="row" href="https://mpacarroll.github.io/ai-foundations/tool/" data-funnel="tool-try"><span class="sw"></span><h3>Prompt Helper</h3><span class="open">Open</span><p>Tell it what you want in plain words and it writes the request for you. No account, no jargon.</p></a>
+      <p class="tag">Work</p>
+      <a class="row" href="https://mpacarroll.github.io/ai-career-coach/tool/" data-funnel="tool-try"><span class="sw"></span><h3>Job Coach</h3><span class="open">Open</span><p>Fix a résumé bullet, draft a tailored cover letter, and rehearse interview answers.</p></a>
+      <a class="row" href="https://mpacarroll.github.io/ai-negotiation-coach/tool/" data-funnel="tool-try"><span class="sw"></span><h3>The Negotiation Room</h3><span class="open">Open</span><p>Prep and rehearse a salary, rent, or bill conversation before you have it for real.</p></a>
+      <p class="tag">If you build</p>
+      <a class="row" href="https://github.com/mpacarroll/ai-building-blocks" data-funnel="tool-try"><span class="sw"></span><h3>Instruction Checker</h3><span class="open">On GitHub</span><p>Catches vague build instructions before AI runs with them. Part of the spec-driven method I build with, in the open.</p></a>
+      <a class="row" href="https://github.com/mpacarroll/ai-building-blocks" data-funnel="book-click"><span class="sw"></span><h3>Book Topic Finder</h3><span class="open">On GitHub</span><p>Finds book topics people search for but few authors have covered. A small tool you run on your own computer.</p></a>
+    </div>
+    <div class="group">
+      <p class="tag">Everyday life</p>
+      <a class="row" href="tools/second-look/" data-funnel="tool-try"><span class="sw"></span><h3>Second Look</h3><span class="open">Open</span><p>Paste the message that made you pause. Get a checklist of what to verify before you click, reply, or send anything.</p></a>
+      <a class="row" href="https://mpacarroll.github.io/ai-for-real-life/tool/" data-funnel="tool-try"><span class="sw"></span><h3>Keep in Touch</h3><span class="open">Open</span><p>Quietly shows who you're overdue to reach out to, so you stop losing people to a busy life. Private and offline.</p></a>
+      <a class="row" href="https://mpacarroll.github.io/ai-travel-planner/tool/" data-funnel="tool-try"><span class="sw"></span><h3>Trip Planner</h3><span class="open">Open</span><p>Turn a few answers into a day-by-day itinerary tuned to your budget, pace, and taste.</p></a>
+      <a class="row" href="https://mpacarroll.github.io/ai-reflection-companion/tool/" data-funnel="tool-try"><span class="sw"></span><h3>Sounding Board</h3><span class="open">Open</span><p>A private, gentle space to think something through and steady yourself. Not therapy; a companion for the space between.</p></a>
+    </div>
+  </div>
+</section>
+
+<div class="two">
+  <!-- FIELD NOTES -->
+  <section class="label" id="notes">
+    <p class="tag">Field notes</p>
+    <h2>Built in the open</h2>
+    <ul class="notes">
+      <li><a href="blog/second-brain/" data-funnel="notes-read">Stop building a second brain.</a><span>The note-linking obsession is mostly procrastination that feels like progress.</span></li>
+      <li><a href="blog/one-clear-spec/" data-funnel="notes-read">You don't need a dozen AI helpers. You need one clear request.</a><span>The bottleneck is writing down what "done" means clearly enough that a machine can't misread it.</span></li>
+      <li><a href="blog/you-are-not-behind/" data-funnel="notes-read">You are not behind on AI.</a><span>If you can write a clear email you already have the core skill.</span></li>
+      <li><a href="blog/spec-teardown/" data-funnel="notes-read">From a fuzzy idea to a shipped tool, in the open.</a><span>A real spec-driven build, start to finish, receipts attached.</span></li>
+    </ul>
+    <p class="after"><a href="blog/" data-funnel="notes-read">Read all the field notes</a><a href="#email" data-funnel="notes-email">Get them by email</a></p>
   </section>
 
-  <div class="tartan-band divider"></div>
-
-  <!-- TOOLS -->
-  <section id="start"><div class="wrap">
-    <h2>Start where you are</h2>
-    <p class="lede">Three doors, depending on where you're at with all this. Pick the one that sounds like you. Everything here is free to try.</p>
-    <div class="paths">
-      <div class="path">
-        <span class="who">New to AI · start here</span>
-        <h3>It feels like everyone gets this but me</h3>
-        <p>Barely used AI, or it feels intimidating? Start with the Prompt Helper: tell it what you want in plain words, and it writes the request for you. No account, no jargon.</p>
-        <a class="btn gold sm" href="https://mpacarroll.github.io/ai-foundations/tool/" data-funnel="tool-try">Open the Prompt Helper</a>
-      </div>
-      <div class="path">
-        <span class="who">Everyday life</span>
-        <h3>I just want less hassle day to day</h3>
-        <p>Small wins at home and work. Keep in Touch quietly shows you who you're overdue to reach out to, so you stop losing people to a busy life. Private and offline.</p>
-        <a class="btn gold sm" href="https://mpacarroll.github.io/ai-for-real-life/tool/" data-funnel="tool-try">Open Keep in Touch</a>
-      </div>
-      <div class="path" id="build">
-        <span class="who">If you build · work in tech</span>
-        <h3>I write code and want sharper tools</h3>
-        <p>You're comfortable at a command line. Here's the spec-driven method I build with, in the open, plus the tools behind it, like the Instruction Checker that catches vague build instructions before AI runs with them.</p>
-        <a class="btn ghost sm" href="https://github.com/mpacarroll/ai-building-blocks" data-funnel="tool-try">See the builder tools</a>
-      </div>
-    </div>
-  </div></section>
-
-  <!-- MORE FREE TOOLS -->
-  <section id="tools"><div class="wrap">
-    <h2>More free tools</h2>
-    <p class="lede">The professionals you can't always afford, made free and plain. Each runs privately in your browser — nothing saved, nothing sent.</p>
-    <div class="grid">
-      <div class="card"><span class="chip">career</span><h3>Job Coach</h3><p>Fix a résumé bullet, draft a tailored cover letter, and rehearse interview answers.</p><a class="btn ghost sm" href="https://mpacarroll.github.io/ai-career-coach/tool/" data-funnel="tool-try">Open Job Coach</a></div>
-      <div class="card"><span class="chip">negotiation</span><h3>The Negotiation Room</h3><p>Prep and rehearse a salary, rent, or bill conversation before you have it for real.</p><a class="btn ghost sm" href="https://mpacarroll.github.io/ai-negotiation-coach/tool/" data-funnel="tool-try">Open the Negotiation Room</a></div>
-      <div class="card"><span class="chip">travel</span><h3>Trip Planner</h3><p>Turn a few answers into a day-by-day itinerary tuned to your budget, pace, and taste.</p><a class="btn ghost sm" href="https://mpacarroll.github.io/ai-travel-planner/tool/" data-funnel="tool-try">Open Trip Planner</a></div>
-      <div class="card"><span class="chip">reflection</span><h3>Sounding Board</h3><p>A private, gentle space to think something through and steady yourself. Not therapy — a companion for the space between.</p><a class="btn ghost sm" href="https://mpacarroll.github.io/ai-reflection-companion/tool/" data-funnel="tool-try">Open Sounding Board</a></div>
-      <div class="card"><span class="chip">safety</span><h3>Second Look</h3><p>Paste the message that made you pause. Get an instant checklist of what to verify before you click, reply, or send anything.</p><a class="btn ghost sm" href="tools/second-look/" data-funnel="tool-try">Take a Second Look</a></div>
-    </div>
-  </div></section>
-
-  <!-- FIELD NOTES -->
-  <section id="notes"><div class="wrap">
-    <h2>Field notes</h2>
-    <p class="lede">What I'm learning, built in the open. The takes are free; the receipts are attached.</p>
-    <ul class="takes">
-      <li><b><a href="blog/second-brain/" data-funnel="notes-read">Stop building a second brain.</a></b><br>The note-linking obsession is mostly procrastination that feels like progress, and AI just made the elaborate structure pointless. <span class="fine">(the argument, with the 20-minute alternative)</span></li>
-      <li><b><a href="blog/one-clear-spec/" data-funnel="notes-read">You don't need a dozen AI helpers. You need one clear request.</a></b><br>The bottleneck was never the AI. It's writing down what "done" means clearly enough that a machine can't misread it.</li>
-      <li><b><a href="blog/you-are-not-behind/" data-funnel="notes-read">You are not behind on AI.</a></b><br>If you can write a clear email you already have the core skill. The people saying otherwise are usually selling the cure.</li>
-      <li><b><a href="blog/spec-teardown/" data-funnel="notes-read">From a fuzzy idea to a shipped tool, in the open.</a></b><br>A real spec-driven build, start to finish, receipts attached.</li>
+  <!-- COURSES AND BOOKS -->
+  <section class="label" id="courses">
+    <span id="books"></span>
+    <p class="tag">Courses and the book</p>
+    <h2>Start wherever you are</h2>
+    <ul class="price">
+      <li><b><a href="courses/ai-starts-here/" data-funnel="course-click">AI Starts Here</a></b><span class="amt">Level 1 · $19</span><span>For people who feel behind on AI and are not. Five modules, plain language.</span></li>
+      <li><b><a href="courses/get-ai-to-help/" data-funnel="course-click">Get AI to Actually Help</a></b><span class="amt">Level 2 · $39</span><span>Five real workflows: the job hunt, high-stakes negotiations, real trip planning, staying in touch.</span></li>
+      <li><b><a href="courses/spec-driven-building/" data-funnel="course-click">Spec-Driven Building</a></b><span class="amt">Level 3 · $79</span><span>Ship real software without becoming an engineer, by writing specs precise enough that AI builds from them.</span></li>
+      <li><b><a href="#email" data-funnel="book-click">The AI Practice Book</a></b><span class="amt">Coming</span><span>Thirty hands-on exercises with paper, pencil, and a chatbot. Tell me when it's out.</span></li>
     </ul>
-    <p style="margin-top:20px"><a href="blog/" data-funnel="notes-read">Read all the field notes →</a> &nbsp;·&nbsp; <a href="#email" data-funnel="notes-email">Get them by email →</a></p>
-  </div></section>
-
-  <!-- WORK WITH ME -->
-  <section id="work"><div class="wrap">
-    <h2>Work with me</h2>
-    <p class="lede">The tools above are the portfolio. If you want to learn the method with your team, here are two ways in.</p>
-    <div class="grid">
-      <div class="card">
-        <span class="chip">team workshop</span>
-        <h3>Ship with AI — Cohort</h3>
-        <p>A short, hands-on course that trains your team to get real, reliable work out of AI instead of confident nonsense.</p>
-        <p class="price"><b>$10k&ndash;$25k per company</b>, depending on team size.</p>
-        <a class="btn ghost sm" href="#inquire" data-offer="Team cohort" data-funnel="work-inquiry">Bring it to my team</a>
-      </div>
-      <div class="card">
-        <span class="chip">cohort + community</span>
-        <h3>The Operator's Table</h3>
-        <p>A four-week guided course plus a private room of people doing this for real. Learn the method, stay for the people.</p>
-        <p class="price"><b>Cohort $12k&ndash;$20k</b> &middot; community <b>$40&ndash;$80 per seat / month.</b></p>
-        <a class="btn ghost sm" href="#email" data-funnel="work-inquiry">Join the waitlist</a>
-      </div>
-    </div>
-
-    <div id="inquire" class="card" style="margin-top:18px">
-      <h3>Tell me about the work</h3>
-      <p>No pitch and no call required to start. Say what you're trying to do and I'll reply with whether I can help and what it would cost.</p>
-      <form id="inq-form" novalidate>
-        <input type="hidden" name="offer" id="inq-offer" value="">
-        <p style="margin:.6em 0"><label for="inq-email">Your email</label><br>
-          <input id="inq-email" name="email" type="email" required placeholder="you@company.com"
-                 style="width:100%;max-width:380px;padding:11px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit"></p>
-        <p style="margin:.6em 0"><label for="inq-msg">What are you trying to do?</label><br>
-          <textarea id="inq-msg" name="message" rows="4" required placeholder="We want to use AI for X but keep getting unreliable results."
-                 style="width:100%;max-width:520px;padding:11px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit"></textarea></p>
-        <input type="text" name="website" id="inq-hp" tabindex="-1" autocomplete="off" aria-hidden="true"
-               style="position:absolute;left:-9999px;width:1px;height:1px">
-        <button class="btn sm" type="submit" data-funnel="work-inquiry">Send it</button>
-        <p id="inq-msg-out" role="status" style="font-weight:600;margin-top:10px"></p>
-      </form>
-    </div>
-  </div></section>
-
-  <!-- BOOKS -->
-  <section id="courses"><div class="wrap">
-    <h2>Courses</h2>
-    <p class="lede">Three self-paced levels. Start wherever you actually are.</p>
-    <div class="grid">
-      <div class="card">
-        <span class="chip">level 1 &middot; $19</span>
-        <h3>AI Starts Here</h3>
-        <p>A short course for people who feel behind on AI and are not. Five modules, plain language.</p>
-        <a class="btn ghost sm" href="courses/ai-starts-here/" data-funnel="course-click">See the course</a>
-      </div>
-      <div class="card">
-        <span class="chip">level 2 &middot; $39</span>
-        <h3>Get AI to Actually Help</h3>
-        <p>Five real workflows: the job hunt, high-stakes negotiations, real trip planning, staying in touch.</p>
-        <a class="btn ghost sm" href="courses/get-ai-to-help/" data-funnel="course-click">See the course</a>
-      </div>
-      <div class="card">
-        <span class="chip">level 3 &middot; $79</span>
-        <h3>Spec-Driven Building</h3>
-        <p>Ship real software without becoming an engineer, by writing specs precise enough that AI builds from them.</p>
-        <a class="btn ghost sm" href="courses/spec-driven-building/" data-funnel="course-click">See the course</a>
-      </div>
-    </div>
-  </div></section>
-
-  <!-- BOOKS -->
-  <section id="books"><div class="wrap">
-    <h2>Books &amp; publishing</h2>
-    <div class="grid">
-      <div class="card">
-        <span class="chip">book</span>
-        <h3>The AI Practice Book</h3>
-        <p>Thirty hands-on exercises to get genuinely good at working with AI. Paper, pencil, and a chatbot.</p>
-        <a class="btn ghost sm" href="#email" data-funnel="book-click">Tell me when it's out</a>
-      </div>
-      <div class="card">
-        <span class="chip">free sample</span>
-        <h3>Five first exercises</h3>
-        <p>A taste of the book, free. Try them today with any AI open in front of you.</p>
-        <a class="btn ghost sm" href="https://mpacarroll.github.io/ai-foundations/exercises/" data-funnel="book-click">Read the free five</a>
-      </div>
-      <div class="card">
-        <span class="chip">for writers · a little setup</span>
-        <h3>Book Topic Finder</h3>
-        <p>Want to write one yourself? This finds book topics people search for but few authors have covered, so yours can actually get found. A small tool you run on your own computer.</p>
-        <a class="btn ghost sm" href="https://github.com/mpacarroll/ai-building-blocks" data-funnel="book-click">Get it</a>
-      </div>
-    </div>
-  </div></section>
-
-  <!-- ABOUT -->
-  <section id="about" class="about"><div class="wrap">
-    <h2>Who's Mick</h2>
-    <p>I'm Mick Cairn. I build small tools that work and write about doing more with less, using AI, without the hype. Everything on this page is something I actually made and use.</p>
-    <p class="pull">My whole thing is proof over hype. I don't have a course to sell you or a résumé to wave around. I have working tools you can try right now, the method I built them with out in the open, and opinions I'll back with receipts.</p>
-    <p>If the tools are good, that's the credential. If they're not, no bio would fix it. Pro-AI, anti-nonsense, on your side, against the people selling you complexity and beside you when it all feels like too much.</p>
-    <p style="margin-top:18px"><a href="#email" data-funnel="about-email">Get the weekly email →</a></p>
-  </div></section>
-
-  <footer>
-    <div class="inner"><div class="wrap">
-      Made by Mick Cairn. The tools are free and stay that way. ·
-      <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a>
-    </div></div>
-  </footer>
-  <div class="goldrule"></div>
+    <p class="after"><a href="https://mpacarroll.github.io/ai-foundations/exercises/" data-funnel="book-click">Read the free first five exercises</a></p>
+  </section>
 </div>
 
+<!-- WORK WITH ME -->
+<section class="label" id="work">
+  <p class="tag">Work with me</p>
+  <h2>Bring the method to your team</h2>
+  <p class="lede">The tools above are the portfolio. If you want to learn the method with your team, here are two ways in.</p>
+  <ul class="price">
+    <li><b><a href="#inquire" data-offer="Team cohort" data-funnel="work-inquiry">Ship with AI, the cohort</a></b><span class="amt">$10k–$25k per company</span><span>A short, hands-on course that trains your team to get real, reliable work out of AI instead of confident nonsense. Priced by team size.</span></li>
+    <li><b><a href="#email" data-funnel="work-inquiry">The Operator's Table</a></b><span class="amt">Cohort $12k–$20k · $40–$80 per seat a month</span><span>A four-week guided course plus a private room of people doing this for real. Join the waitlist by email.</span></li>
+  </ul>
+  <div class="inquire" id="inquire">
+    <h3>Tell me about the work</h3>
+    <p>No pitch and no call required to start. Say what you're trying to do and I'll reply with whether I can help and what it would cost.</p>
+    <form id="inq-form" novalidate>
+      <input type="hidden" name="offer" id="inq-offer" value="">
+      <p><label for="inq-email">Your email</label><br>
+        <input class="field" id="inq-email" name="email" type="email" required placeholder="you@company.com"></p>
+      <p style="margin-top:10px"><label for="inq-msg">What are you trying to do?</label><br>
+        <textarea class="field" id="inq-msg" name="message" rows="4" required placeholder="We want to use AI for X but keep getting unreliable results."></textarea></p>
+      <input class="hp" type="text" name="website" id="inq-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p style="margin-top:10px"><button class="btn" type="submit" data-funnel="work-inquiry">Send it</button></p>
+      <p id="inq-msg-out" class="status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<!-- WHO'S MICK -->
+<section class="label" id="about">
+  <div class="who">
+    <svg viewBox="0 0 64 64" role="img" aria-label="A cairn: five stacked trail stones">
+      <ellipse cx="32" cy="54" rx="23" ry="7.5" fill="#6f7882"/>
+      <ellipse cx="30" cy="42.5" rx="16.5" ry="6" fill="#14573d" transform="rotate(-4 30 42.5)"/>
+      <ellipse cx="34" cy="32" rx="11.5" ry="5" fill="#b8ad8e" transform="rotate(5 34 32)"/>
+      <ellipse cx="31" cy="23.5" rx="7.5" ry="4" fill="#a9780a"/>
+      <ellipse cx="32.5" cy="16.5" rx="4.2" ry="3" fill="#2f3a33"/>
+    </svg>
+    <div>
+      <p class="tag">Who's Mick</p>
+      <h2>A cairn marks the way for the next walker.</h2>
+      <p>I'm Mick Cairn. I build small tools that work and write about doing more with less, using AI, without the hype. Everything on this page is something I actually made and use.</p>
+      <p class="pull">If the tools are good, that's the credential. If they're not, no bio would fix it.</p>
+      <p>Pro-AI, anti-nonsense, on your side against the people selling you complexity, and beside you when it all feels like too much.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL -->
+<section class="label" id="email-section">
+  <p class="tag">The weekly email</p>
+  <h2>One useful thing a week</h2>
+  <form class="signup" id="email" method="post" action="https://join.micksfairdinkumai.com/subscribe" data-funnel="email-signup">
+    <label for="su-email">Your email</label>
+    <input class="field" id="su-email" type="email" name="email" required placeholder="you@example.com">
+    <button class="btn" type="submit">Send it to me</button>
+  </form>
+  <p class="fine" id="su-out">No spam. One short, useful email. Unsubscribe anytime.</p>
+</section>
+
+<footer>Made by Mick Cairn. The tools are free and stay that way. · <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a></footer>
+</div>
+
+<script src="assets/second-look-checks.js"></script>
 <script>
+  /* Hero: the real Second Look checks, run on load so the example shows its result. */
+  (function(){
+    var form = document.getElementById('sl'), out = document.getElementById('sl-out');
+    var msgEl = document.getElementById('sl-msg'), example = document.getElementById('sl-example');
+    function run(){
+      var msg = msgEl.value.trim();
+      var flags = msg ? SecondLook.check(msg, document.getElementById('sl-ask').value)
+                      : ["Paste a message first, then take a second look."];
+      out.textContent = '';
+      flags.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; out.appendChild(li); });
+    }
+    msgEl.addEventListener('input', function(){ example.hidden = true; }, { once: true });
+    form.addEventListener('submit', function(e){ e.preventDefault(); run(); });
+    run();
+  })();
+
   /* Signup -> Cloudflare Worker + D1 (join.micksfairdinkumai.com). Submits via
      fetch so the page never navigates away; shows an inline confirmation. */
   (function(){
-    var f = document.getElementById('email');
+    var f = document.getElementById('email'), note = document.getElementById('su-out');
     if (!f) return;
     f.addEventListener('submit', function(e){
       e.preventDefault();
-      var input = f.querySelector('input[type=email]');
-      var note = f.querySelector('.pending-note');
-      if (!note) { note = document.createElement('div'); note.className = 'fine pending-note'; f.appendChild(note); }
+      var input = document.getElementById('su-email');
       note.textContent = 'Signing you up…';
       fetch(f.getAttribute('action'), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ email: (input && input.value) || '', source: 'hub' })
       }).then(function(r){ return r.json(); }).then(function(d){
-        if (d && d.ok) { f.reset(); note.textContent = "You're in — thanks for trusting me with your inbox."; }
-        else { note.textContent = (d && d.error) || "That didn't go through — mind trying again?"; }
-      }).catch(function(){ note.textContent = 'Network hiccup — try again in a sec.'; });
+        if (d && d.ok) { f.reset(); note.textContent = "You're in. Thanks for trusting me with your inbox."; }
+        else { note.textContent = (d && d.error) || "That didn't go through. Mind trying again?"; }
+      }).catch(function(){ note.textContent = 'Network hiccup. Try again in a moment.'; });
     });
   })();
-</script>
 
-
-<script>
-(function(){
-  // Clicking a service CTA pre-fills which offer the enquiry is about.
-  document.querySelectorAll('a[data-offer]').forEach(function(a){
-    a.addEventListener('click',function(){
-      var o=document.getElementById('inq-offer'); if(o) o.value=a.dataset.offer;
+  /* Inquiry -> join.micksfairdinkumai.com/inquire. A service link pre-fills which offer it is about. */
+  (function(){
+    document.querySelectorAll('a[data-offer]').forEach(function(a){
+      a.addEventListener('click', function(){ var o = document.getElementById('inq-offer'); if (o) o.value = a.dataset.offer; });
     });
-  });
-  var f=document.getElementById('inq-form'); if(!f) return;
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var out=document.getElementById('inq-msg-out'), btn=f.querySelector('button');
-    var email=(document.getElementById('inq-email').value||'').trim();
-    var message=(document.getElementById('inq-msg').value||'').trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ out.textContent='Please enter a valid email.'; return; }
-    if(!message){ out.textContent='Tell me a little about the work.'; return; }
-    if(document.getElementById('inq-hp').value){ out.textContent='Thanks — I\u2019ll be in touch.'; return; }
-    btn.disabled=true; out.textContent='Sending\u2026';
-    fetch('https://join.micksfairdinkumai.com/inquire',{method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:email,message:message,offer:document.getElementById('inq-offer').value})})
-      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
-      .then(function(d){
-        if(d && d.ok){ out.textContent='Thanks \u2014 I\u2019ll be in touch shortly.'; f.reset(); }
-        else { out.textContent=(d&&d.error)?d.error:'Something went wrong. Try again.'; btn.disabled=false; }
-      })
-      .catch(function(){ out.textContent='Could not reach the server. Try again shortly.'; btn.disabled=false; });
-  });
-})();
+    var f = document.getElementById('inq-form'); if (!f) return;
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var out = document.getElementById('inq-msg-out'), btn = f.querySelector('button');
+      var email = (document.getElementById('inq-email').value || '').trim();
+      var message = (document.getElementById('inq-msg').value || '').trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { out.textContent = 'Please enter a valid email.'; return; }
+      if (!message) { out.textContent = 'Tell me a little about the work.'; return; }
+      if (document.getElementById('inq-hp').value) { out.textContent = "Thanks. I'll be in touch."; return; }
+      btn.disabled = true; out.textContent = 'Sending…';
+      fetch('https://join.micksfairdinkumai.com/inquire', { method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, message: message, offer: document.getElementById('inq-offer').value }) })
+        .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
+        .then(function(d){
+          if (d && d.ok) { out.textContent = "Thanks. I'll be in touch shortly."; f.reset(); }
+          else { out.textContent = (d && d.error) ? d.error : 'Something went wrong. Try again.'; btn.disabled = false; }
+        })
+        .catch(function(){ out.textContent = 'Could not reach the server. Try again shortly.'; btn.disabled = false; });
+    });
+  })();
 </script>
 </body>
 </html>
