@@ -168,6 +168,25 @@
   @media (max-width:520px){ .price li{grid-template-columns:1fr} .price .amt{text-align:left} }
   .after{margin:16px 0 0; display:flex; flex-wrap:wrap; gap:6px 18px; font-weight:700}
 
+
+  /* the store */
+  .hero .cta{margin:22px 0 0}
+  .steps{margin:18px 0 0; padding-left:1.3em; display:grid; gap:6px; max-width:70ch}
+  .steps li::marker{font-family:var(--mono); color:var(--mark); font-weight:600}
+  .two-col{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:10px 40px; margin-top:22px}
+  @media (max-width:820px){ .two-col{grid-template-columns:1fr} }
+  .two-col > div > .tag{border-bottom:1.5px solid var(--rule); padding-bottom:6px}
+  .shop{margin-top:4px}
+  .shop li{grid-template-columns:minmax(0,1fr) auto auto; align-items:baseline}
+  .shop .buy{grid-row:1; grid-column:3; font-weight:700; font-size:.9rem; color:var(--link); white-space:nowrap}
+  .shop span:not(.amt){grid-column:1 / -1}
+  @media (max-width:520px){ .shop li{grid-template-columns:minmax(0,1fr) auto} .shop .amt{grid-column:2; text-align:right} .shop .buy{grid-row:auto; grid-column:1 / -1} }
+  .bundle{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 20px; margin-top:22px;
+    background:var(--selvedge); color:var(--sett-line); border-radius:4px; padding:18px 20px}
+  .bundle b{display:block; font-family:var(--display); font-size:1.5rem}
+  .bundle span{font-size:.95rem; opacity:.9}
+  .bundle .btn{background:var(--sett-fleck); color:#17221b}
+
   /* inquiry */
   .inquire{margin-top:22px; border-top:1.5px solid var(--rule); padding-top:18px; display:grid; gap:10px; max-width:560px}
   .inquire h3{font-size:1.2rem}
@@ -216,7 +235,7 @@
     <span><b>Mick Cairn</b><span class="sub">Fair Dinkum AI</span></span>
   </a>
   <nav aria-label="Sections">
-    <a class="keep" href="#tools">Tools</a><a href="#notes">Notes</a><a href="#courses">Courses</a><a href="#work">Work with me</a><a href="#about">Who's Mick</a>
+    <a class="keep" href="#skills">Skills</a><a href="#tools">Free tools</a><a href="#notes">Notes</a><a href="#courses">Courses</a><a href="#work">Work with me</a><a href="#about">Who's Mick</a>
   </nav>
 </header>
 
@@ -224,10 +243,11 @@
 <section class="label" id="home">
   <div class="hero">
     <div>
-      <p class="tag">Free · private · no account</p>
-      <h1>Simple tools that work. Try one right now.</h1>
-      <p class="lede">They run in your browser and send nothing anywhere. This one takes a second look at a message that made you pause.</p>
-      <p class="more"><a href="#tools">Or see every free tool</a></p>
+      <p class="tag">Two free · five at $5 · all five for $19</p>
+      <h1>AI skills you add to your own assistant.</h1>
+      <p class="lede">Each skill teaches your AI to do one job well, the way a good coach or friend would. Try the free scam check right here.</p>
+      <p class="cta"><a class="btn" href="#skills" data-funnel="skills-view">See the skills</a></p>
+      <p class="more"><a href="#tools">Or use the free web tools</a></p>
     </div>
     <form class="tool" id="sl" novalidate>
       <div class="head"><h2>Second Look</h2><span class="example" id="sl-example">Example message</span></div>
@@ -250,12 +270,50 @@
   </div>
 </section>
 
+
+<!-- SKILLS: the store. Buttons read "Notify me" until STORE below has a link. -->
+<section class="label" id="skills">
+  <p class="tag">The skills</p>
+  <h2>Skills for the AI you already use</h2>
+  <p class="lede">A skill is a short set of instructions your AI follows, with the checklists and examples it needs. Add it once and it stays. Tested in Claude, with setup steps for ChatGPT and Gemini included. Every skill is retested each month.</p>
+  <ol class="steps">
+    <li><b>Get the skill.</b> A small folder. The free ones are free; the rest are $5.</li>
+    <li><b>Add it to your AI.</b> A Claude Project, a ChatGPT GPT or a Gemini Gem. About two minutes, steps included.</li>
+    <li><b>Ask in plain words.</b> Paste the job posting, the odd message, the trip idea. The skill does the rest.</li>
+  </ol>
+  <div class="two-col">
+    <div>
+      <p class="tag">Start free</p>
+      <ul class="price shop">
+        <li><b>Second Look</b><span class="amt">Free</span><span>Checks a message, call, text or link for scam signs, gives a plain verdict, and says what to do first if you already acted.</span><a class="buy" data-sku="second-look" data-free="1" href="#email" data-funnel="skill-notify">Notify me</a></li>
+        <li><b>Sounding Board</b><span class="amt">Free</span><span>Think a hard moment through, one question at a time. Not therapy, and it knows when to hand you to a real person.</span><a class="buy" data-sku="sounding-board" data-free="1" href="#email" data-funnel="skill-notify">Notify me</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="tag">Five skills, $5 each</p>
+      <ul class="price shop">
+        <li><b>Job Coach</b><span class="amt">$5</span><span>Paste the job posting and your résumé. Get an honest fit map, bullets built only from what is true, a cover letter, and a mock interview.</span><a class="buy" data-sku="job-coach" href="#email" data-funnel="skill-notify">Notify me</a></li>
+        <li><b>Negotiation Room</b><span class="amt">$5</span><span>Plan a salary, rent or bill conversation, then rehearse it with your AI playing the other side.</span><a class="buy" data-sku="negotiation-room" href="#email" data-funnel="skill-notify">Notify me</a></li>
+        <li><b>Prompt Helper</b><span class="amt">$5</span><span>Turn a vague ask into a clear one, and fix a bad answer instead of starting over.</span><a class="buy" data-sku="prompt-helper" href="#email" data-funnel="skill-notify">Notify me</a></li>
+        <li><b>Keep in Touch</b><span class="amt">$5</span><span>A people list you own, and each week a short, specific note for whoever you are overdue to reach.</span><a class="buy" data-sku="keep-in-touch" href="#email" data-funnel="skill-notify">Notify me</a></li>
+        <li><b>Trip Planner*</b><span class="amt">$5</span><span>Plan one trip in one conversation: days that make sense, a budget split, and what to book first.</span><a class="buy" data-sku="trip-planner" href="#email" data-funnel="skill-notify">Notify me</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bundle">
+    <div><b>All five for $19</b><span>Job Coach, Negotiation Room, Prompt Helper, Keep in Touch and Trip Planner. $25 bought one by one.</span></div>
+    <a class="btn buy" data-sku="bundle" href="#email" data-funnel="skill-notify">Notify me</a>
+  </div>
+  <p class="fine">* Planning a bigger trip over weeks? <a href="https://tripdeputy.com/plan/" rel="noopener">TripDeputy</a> is the Pro version: send it links and ideas as you go, and it builds the plan, the packing list and booking reminders.</p>
+  <p class="fine" id="shop-note">The skills open soon. Leave your email below and you will hear first.</p>
+</section>
+
 <!-- TOOLS -->
 <section class="label" id="tools">
   <span id="start"></span>
-  <p class="tag">The swatch book</p>
-  <h2>Every free tool</h2>
-  <p class="lede">The professionals you can't always afford, made free and plain. Pick the one that sounds like you.</p>
+  <p class="tag">Free in your browser</p>
+  <h2>The free web tools</h2>
+  <p class="lede">The original tools, still free: each one runs on this site and builds a request you paste into any AI. The skills above do the work inside your AI instead.</p>
   <div class="book">
     <div class="group">
       <p class="tag">New to AI, start here</p>
@@ -363,7 +421,7 @@
   <p class="fine" id="su-out">No spam. One short, useful email. Unsubscribe anytime.</p>
 </section>
 
-<footer>Made by Mick Cairn. The tools are free and stay that way. · <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a></footer>
+<footer>Made by Mick Cairn. The web tools are free and stay that way. · <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a></footer>
 </div>
 
 <script src="assets/second-look-checks.js"></script>
@@ -384,6 +442,26 @@
     run();
   })();
 
+  /* The store. Put each Gumroad link here when it exists; until then the
+     button reads "Notify me" and goes to the email signup. */
+  (function(){
+    var STORE = {
+      "second-look": "", "sounding-board": "",
+      "job-coach": "", "negotiation-room": "", "prompt-helper": "",
+      "keep-in-touch": "", "trip-planner": "", "bundle": ""
+    };
+    var live = 0;
+    document.querySelectorAll('a.buy[data-sku]').forEach(function(a){
+      var url = STORE[a.dataset.sku];
+      if (!url) return;
+      live++;
+      a.href = url;
+      a.textContent = a.dataset.sku === 'bundle' ? 'Get all five' : (a.dataset.free ? 'Get it' : 'Buy');
+      a.dataset.funnel = 'skill-buy';
+    });
+    var note = document.getElementById('shop-note');
+    if (note && live) note.hidden = true;
+  })();
   /* Signup -> Cloudflare Worker + D1 (join.micksfairdinkumai.com). Submits via
      fetch so the page never navigates away; shows an inline confirmation. */
   (function(){
