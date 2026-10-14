@@ -1,0 +1,113 @@
+/* Course pages: the hub's look (tartan cloth, woven labels), cut down to what a
+   sales page needs. Tokens match index.html; change both together. */
+@font-face{font-family:"Zilla Slab"; font-style:normal; font-weight:500; font-display:swap; src:url(../assets/fonts/zilla-slab-500.woff2) format("woff2");}
+@font-face{font-family:"Zilla Slab"; font-style:normal; font-weight:700; font-display:swap; src:url(../assets/fonts/zilla-slab-700.woff2) format("woff2");}
+@font-face{font-family:"Atkinson Hyperlegible Next"; font-style:normal; font-weight:200 800; font-display:swap; src:url(../assets/fonts/atkinson-hyperlegible-next.woff2) format("woff2");}
+@font-face{font-family:"Atkinson Hyperlegible Mono"; font-style:normal; font-weight:200 800; font-display:swap; src:url(../assets/fonts/atkinson-hyperlegible-mono.woff2) format("woff2");}
+
+:root{
+  --sett-ground:#6b8574; --sett-band:#566f5f; --sett-dark:#465c4e;
+  --sett-line:#e6dcc2; --sett-fleck:#c2a45c; --selvedge:#33463b;
+  --label:#eee8d6; --label-2:#e4dcc6; --ink:#17221b; --muted:#525b50;
+  --stitch:#9a9277; --rule:#d3caae;
+  --accent:#0f5a34; --accent-ink:#f6f1e2; --link:#0f5a34; --mark:#856007;
+  --display:"Zilla Slab",Rockwell,"Roboto Slab",Georgia,serif;
+  --body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --label:#17201a; --label-2:#1e2a22; --ink:#ece6d4; --muted:#a9b3a6;
+  --stitch:#4d5a4f; --rule:#2c3a30;
+  --accent:#d7b552; --accent-ink:#14200f; --link:#e0c66d; --mark:#d7b552;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --label:#17201a; --label-2:#1e2a22; --ink:#ece6d4; --muted:#a9b3a6;
+  --stitch:#4d5a4f; --rule:#2c3a30;
+  --accent:#d7b552; --accent-ink:#14200f; --link:#e0c66d; --mark:#d7b552;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+body{
+  margin:0; color:var(--ink); font-family:var(--body); font-size:1.06rem; line-height:1.6; -webkit-font-smoothing:antialiased;
+  padding-inline:clamp(16px,3vw,32px); padding-block:16px 40px;
+  background-color:var(--sett-ground);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,.045) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg,
+      color-mix(in srgb,var(--sett-band) 50%,transparent) 0 22px, transparent 22px 34px,
+      color-mix(in srgb,var(--sett-line) 28%,transparent) 34px 35px, transparent 35px 52px,
+      color-mix(in srgb,var(--sett-dark) 35%,transparent) 52px 64px, transparent 64px 76px,
+      color-mix(in srgb,var(--sett-fleck) 45%,transparent) 76px 78px, transparent 78px 96px),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb,var(--sett-band) 40%,transparent) 0 22px, transparent 22px 34px,
+      color-mix(in srgb,var(--sett-line) 22%,transparent) 34px 35px, transparent 35px 52px,
+      color-mix(in srgb,var(--sett-dark) 30%,transparent) 52px 64px, transparent 64px 76px,
+      color-mix(in srgb,var(--sett-fleck) 38%,transparent) 76px 78px, transparent 78px 96px);
+}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--mark); outline-offset:2px}
+[id]{scroll-margin-top:16px}
+.page{max-width:820px; margin:0 auto; display:flex; flex-direction:column; gap:22px}
+
+.selvedge{display:flex; align-items:center; gap:18px; padding:12px 18px; background:var(--selvedge);
+  color:var(--sett-line); border-bottom:3px solid var(--sett-fleck); border-radius:4px 4px 0 0}
+.brand{display:flex; align-items:center; gap:10px; margin-right:auto; color:inherit; text-decoration:none}
+.brand svg{width:38px; height:38px; flex:none}
+.brand b{font-family:var(--display); font-size:1.35rem; font-weight:700; display:block; line-height:1}
+.brand .sub{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; opacity:.8}
+.selvedge nav{display:flex; gap:18px; flex-wrap:wrap}
+.selvedge nav a{color:var(--sett-line); text-decoration:none; font-size:.95rem; opacity:.85}
+.selvedge nav a:hover{opacity:1; text-decoration:underline}
+@media (max-width:520px){ .selvedge nav a:not(.keep){display:none} }
+
+.label{background:var(--label); border-radius:4px; position:relative; padding:clamp(22px,4vw,44px);
+  box-shadow:0 1px 0 rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.14)}
+.label::after{content:""; position:absolute; inset:9px; border:1.5px dashed var(--stitch); border-radius:2px; pointer-events:none}
+.label > *{position:relative; z-index:1}
+.tag{font-family:var(--mono); font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; color:var(--ink)}
+h1{font-size:clamp(2.2rem,5vw,3.2rem); line-height:1.04; font-weight:700; margin:.15em 0 .25em; letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,3vw,1.9rem); line-height:1.1; font-weight:700; margin:0 0 .3em}
+h3{font-size:1.2rem; line-height:1.2; font-weight:700; margin:0}
+.lede{font-size:1.15rem; color:var(--muted); max-width:52ch; margin:0}
+
+.for{display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 0; padding:0; list-style:none}
+.for li{border:1.5px solid var(--rule); border-radius:4px; padding:4px 12px; font-size:.9rem; background:var(--label-2)}
+.buyrow{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:24px}
+.amt{font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--mark); font-weight:700; font-size:1.6rem}
+.btn{font:inherit; font-weight:700; background:var(--accent); color:var(--accent-ink); border:0; border-radius:4px;
+  padding:12px 20px; cursor:pointer; font-size:1.02rem; text-decoration:none; display:inline-block}
+.btn:hover{filter:brightness(1.1)}
+.btn:disabled{opacity:.6; cursor:default}
+.fine{font-size:.88rem; color:var(--muted); margin:10px 0 0}
+
+.mods{list-style:none; margin:14px 0 0; padding:0; counter-reset:mod}
+.mods li{display:grid; grid-template-columns:auto minmax(0,1fr); gap:2px 14px; padding:12px 0; border-bottom:1px dashed var(--rule); counter-increment:mod}
+.mods li::before{content:counter(mod,decimal-leading-zero); font-family:var(--mono); color:var(--mark); font-weight:600; grid-row:span 2}
+.mods b{font-family:var(--display); font-size:1.12rem}
+.mods span{color:var(--muted); font-size:.95rem}
+
+.price{list-style:none; margin:14px 0 0; padding:0}
+.price li{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 16px; padding:12px 0; border-bottom:1px dashed var(--rule)}
+.price b{font-family:var(--display); font-size:1.12rem}
+.price b a{color:var(--ink); text-decoration:none}
+.price b a:hover{color:var(--link); text-decoration:underline}
+.price .amt{font-size:.92rem; font-weight:600; text-align:right}
+.price span:not(.amt){grid-column:1 / -1; color:var(--muted); font-size:.95rem}
+@media (max-width:520px){ .price li{grid-template-columns:1fr} .price .amt{text-align:left} }
+
+.signup{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; max-width:520px}
+.signup label{flex-basis:100%; font-weight:700; font-size:.92rem}
+.field{flex:1 1 220px; min-width:0; font:inherit; color:var(--ink); background:var(--label-2);
+  border:1.5px solid var(--rule); border-radius:4px; padding:10px 12px}
+.signup .btn{align-self:stretch}
+.hp{position:absolute; left:-9999px; width:1px; height:1px}
+.status{font-weight:700; margin:0; flex-basis:100%}
+
+footer{color:var(--sett-line); text-align:center; font-size:.9rem; background:var(--selvedge); padding:16px; border-radius:4px}
+footer a{color:var(--sett-line)}
