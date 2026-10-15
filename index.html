@@ -382,9 +382,11 @@
         <input class="field" id="inq-email" name="email" type="email" required placeholder="you@company.com"></p>
       <p style="margin-top:10px"><label for="inq-msg">What are you trying to do?</label><br>
         <textarea class="field" id="inq-msg" name="message" rows="4" required placeholder="We want to use AI for X but keep getting unreliable results."></textarea></p>
+      <p style="margin-top:10px"><label><input type="checkbox" id="inq-optin" name="optin" value="true"> Also send me the weekly email</label></p>
       <input class="hp" type="text" name="website" id="inq-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p style="margin-top:10px"><button class="btn" type="submit" data-funnel="work-inquiry">Send it</button></p>
       <p id="inq-msg-out" class="status" role="status"></p>
+      <p class="fine"><a href="privacy/">How we use your email</a></p>
     </form>
   </div>
 </section>
@@ -418,10 +420,10 @@
     <input class="field" id="su-email" type="email" name="email" required placeholder="you@example.com">
     <button class="btn" type="submit">Send it to me</button>
   </form>
-  <p class="fine" id="su-out">No spam. One short, useful email. Unsubscribe anytime.</p>
+  <p class="fine" id="su-out">No spam. One short, useful email. Unsubscribe anytime. · <a href="privacy/">How we use your email</a></p>
 </section>
 
-<footer>Made by Mick Cairn. The web tools are free and stay that way. · <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a></footer>
+<footer>Made by Mick Cairn. The web tools are free and stay that way. · <a href="https://github.com/mpacarroll/ai-building-blocks">Built in the open</a> · <a href="privacy/">Privacy</a></footer>
 </div>
 
 <script src="assets/second-look-checks.js"></script>
@@ -499,7 +501,7 @@
       btn.disabled = true; out.textContent = 'Sending…';
       fetch('https://join.micksfairdinkumai.com/inquire', { method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, message: message, offer: document.getElementById('inq-offer').value }) })
+        body: JSON.stringify({ email: email, message: message, offer: document.getElementById('inq-offer').value, optin: document.getElementById('inq-optin').checked }) })
         .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
         .then(function(d){
           if (d && d.ok) { out.textContent = "Thanks. I'll be in touch shortly."; f.reset(); }
