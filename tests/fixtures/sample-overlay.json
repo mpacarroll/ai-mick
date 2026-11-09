@@ -9,6 +9,7 @@
     ] }
   },
   "exercises": {
+    "2.1": { "artifact": { "title": "My interview request" } },
     "1.2": { "handoff": { "label": "Open a tool", "url": "https://example.com/tool/", "note": "Synthetic handoff." } }
   },
   "handoffs": [ { "label": "Next course", "url": "../../next/", "note": "Synthetic." } ]
