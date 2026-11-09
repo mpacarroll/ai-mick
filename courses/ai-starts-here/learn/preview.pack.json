@@ -26,13 +26,19 @@
           "id": "1.1",
           "label": "Exercise 1.1",
           "text": "Open any AI assistant. Type exactly this: \"Explain what you are good at and what you are bad at, in plain language, like you're talking to a smart friend who has never used you.\" Read the answer. This single exercise removes most of the mystery.",
-          "prompt": "Explain what you are good at and what you are bad at, in plain language, like you're talking to a smart friend who has never used you."
+          "prompt": "Explain what you are good at and what you are bad at, in plain language, like you're talking to a smart friend who has never used you.",
+          "artifact": {
+            "title": "What my AI says it is good and bad at"
+          }
         },
         {
           "id": "1.2",
           "label": "Exercise 1.2",
           "text": "Take the longest message or email you sent this week. Paste it in and say: \"Cut this to half the length without losing anything that matters.\" Read both versions. Notice what it kept and what it cut.",
-          "prompt": "Cut this to half the length without losing anything that matters."
+          "prompt": "Cut this to half the length without losing anything that matters.",
+          "artifact": {
+            "title": "My cut-it-in-half request"
+          }
         }
       ],
       "learning": "AI is a fast, tireless editor and explainer, not a magic oracle. Treat it like a very well-read assistant, not a genius."

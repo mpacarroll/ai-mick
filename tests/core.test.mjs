@@ -284,3 +284,91 @@ test('validatePack() reports, never throws, on lists that are not lists', () => 
     assert.equal(r.ok, false);
   }
 });
+
+const CATALOG = [
+  { slug: 'c', title: 'Course C', level: 'Level 1', page: 'c/', learn: 'c/learn/' },
+  { slug: 'd', title: 'Course D', level: 'Level 2', page: 'd/', learn: null }
+];
+
+test('toolkit: save, update, rename and remove an item; empty notes are refused', () => {
+  const s = memStorage();
+  const st = Core.createStore(s, { clock });
+  assert.equal(st.saveArtifact('c', '1.1', { title: 'T', body: '   ' }), false);
+  assert.ok(st.saveArtifact('c', '1.1', { title: '  My prompt  ', body: 'Ask for three versions.', source: 'Exercise 1.1' }));
+  let saved = JSON.parse(s.getItem(Core.SAVE_KEY)).courses.c.artifacts['1.1'];
+  assert.deepEqual(saved, { title: 'My prompt', body: 'Ask for three versions.', source: 'Exercise 1.1', module: '', savedAt: '2026-11-09T12:00:00.000Z' });
+  assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions.', module: 'm1' }));
+  assert.equal(st.state().courses.c.artifacts['1.1'].module, 'm1');
+  assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions.', module: '"><x' }));
+  assert.equal(st.state().courses.c.artifacts['1.1'].module, '', 'unsafe module ids never reach a link');
+  assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions, then pick.' }));
+  assert.equal(Object.keys(st.state().courses.c.artifacts).length, 1, 'saving again updates, never duplicates');
+  assert.ok(st.renameArtifact('c', '1.1', 'x'.repeat(500)));
+  assert.equal(st.state().courses.c.artifacts['1.1'].title.length, Core.MAX_TITLE);
+  assert.equal(st.renameArtifact('c', '1.1', '  '), false);
+  assert.equal(st.renameArtifact('c', 'nope', 'x'), false);
+  assert.ok(st.removeArtifact('c', '1.1'));
+  assert.deepEqual(st.state().courses.c.artifacts, {});
+});
+
+test('toolkit items travel in the course backup and survive a damaged item', () => {
+  const st = Core.createStore(memStorage(), { clock });
+  st.saveArtifact('c', '1.1', { title: 'Keep', body: 'Body' });
+  const b = Core.makeBackup(st, 'c', clock);
+  b.progress.artifacts.bad = { title: 'No body' };
+  b.progress.artifacts.worse = 'nope';
+  const r = Core.readBackup(JSON.stringify(b), 'c');
+  assert.equal(r.ok, true);
+  assert.deepEqual(Object.keys(r.progress.artifacts), ['1.1']);
+});
+
+test('setSnapshot() only writes when the summary changed', () => {
+  const s = memStorage();
+  let writes = 0;
+  const counting = { ...s, setItem: (k, v) => { if (k === Core.SAVE_KEY) writes++; s.setItem(k, v); } };
+  const st = Core.createStore(counting, { clock });
+  const snap = Core.snapshotFor(preview(), { lastModule: 'm1', read: {}, exercises: {} });
+  assert.deepEqual(snap, { title: preview().title, edition: 'preview', done: 0, total: 2, lockedModules: 2, lastModuleTitle: preview().modules[0].title });
+  assert.ok(st.setSnapshot('c', snap));
+  const after = writes;
+  assert.ok(st.setSnapshot('c', snap));
+  assert.equal(writes, after);
+});
+
+test('myCourses() reports honest status for each course', () => {
+  const st = Core.createStore(memStorage(), { clock });
+  let rows = Core.myCourses(st.state(), CATALOG);
+  assert.deepEqual(rows.map((r) => r.status), ['new', 'none']);
+  assert.equal(rows[0].resume, 'c/learn/');
+  assert.equal(rows[1].resume, null, 'no learn page means no resume link');
+  st.setNote('c', '1.1', 'n');
+  st.setLastModule('c', 'm2');
+  st.setSnapshot('c', { title: 'Course C', edition: 'preview', done: 1, total: 2, lockedModules: 2, lastModuleTitle: 'Two' });
+  st.saveArtifact('c', '1.1', { title: 'A', body: 'B' });
+  rows = Core.myCourses(st.state(), CATALOG);
+  assert.equal(rows[0].status, 'started');
+  assert.equal(rows[0].resume, 'c/learn/#m2');
+  assert.deepEqual([rows[0].done, rows[0].total, rows[0].toolkit, rows[0].lastModuleTitle], [1, 2, 1, 'Two']);
+  st.markComplete('c', true);
+  assert.equal(Core.myCourses(st.state(), CATALOG)[0].status, 'finished');
+  // A hand-edited lastModule cannot turn into a strange link.
+  st.state().courses.c.lastModule = '"><script>';
+  assert.equal(Core.myCourses(st.state(), CATALOG)[0].resume, 'c/learn/');
+});
+
+test('listArtifacts() and exportToolkitMarkdown() cover every course, newest first', () => {
+  let t = 0;
+  const tick = () => new Date(Date.UTC(2026, 10, 9, 12, t++));
+  const st = Core.createStore(memStorage(), { clock: tick });
+  st.saveArtifact('c', '1.1', { title: 'Older', body: 'first', source: 'Exercise 1.1' });
+  st.saveArtifact('d', '2.1', { title: 'Newer', body: 'second' });
+  st.saveArtifact('gone', '9.9', { title: 'From a course not in the catalog', body: 'kept' });
+  const items = Core.listArtifacts(st.state(), CATALOG);
+  assert.deepEqual(items.map((i) => i.title), ['From a course not in the catalog', 'Newer', 'Older']);
+  assert.equal(items[1].courseTitle, 'Course D');
+  assert.equal(items[0].courseTitle, 'gone');
+  const md = Core.exportToolkitMarkdown(st.state(), CATALOG, clock);
+  assert.match(md, /^# My AI toolkit\n\nExported 2026-11-09\. 3 items/);
+  assert.match(md, /## Older\n\n_From Course C, Exercise 1\.1\. Saved 2026-11-09\._\n\nfirst/);
+  assert.match(Core.exportToolkitMarkdown(Core.createStore(memStorage()).state(), CATALOG, clock), /Nothing saved yet/);
+});

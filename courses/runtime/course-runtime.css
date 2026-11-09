@@ -40,6 +40,9 @@ main{display:flex; flex-direction:column; gap:22px}
 .rt-btn2:disabled{opacity:.6; cursor:default}
 .rt-danger{border-color:#9b2c2c; color:#9b2c2c}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rt-danger{border-color:#f0a3a3; color:#f0a3a3}}
+.rt-toolkit{margin-top:14px; padding-top:10px; border-top:1px dashed var(--rule)}
+.rt-toolkit .fine{margin:0}
+.rt-toolkit a[hidden]{display:none}
 .rt-learning{margin:22px 0 0; padding:12px 14px; background:var(--label-2); border-radius:4px}
 .rt-foot{margin-top:20px; border-top:1px dashed var(--rule); padding-top:10px}
 .rt-modstate{font-weight:700; margin:0}
@@ -61,3 +64,17 @@ main{display:flex; flex-direction:column; gap:22px}
 .rt-handoffs a{font-family:var(--display); font-weight:700; font-size:1.1rem}
 .rt-handoffs span{color:var(--muted); font-size:.95rem}
 h1[tabindex]:focus{outline:none}
+
+/* My courses page */
+.rt-courses{list-style:none; margin:16px 0 0; padding:0; display:grid; gap:14px}
+.rt-course{border:1.5px solid var(--rule); border-radius:4px; background:var(--label-2); padding:16px 18px}
+.rt-course.is-finished{border-color:var(--accent)}
+.rt-course h3{margin:0; font-size:1.2rem}
+.rt-course h3 a{color:var(--ink)}
+.rt-course p{margin:8px 0 0}
+.rt-meta{font-family:var(--mono); font-size:.8rem; color:var(--muted); margin:4px 0 0}
+.rt-item .rt-body{font-family:var(--mono); font-size:.92rem; background:var(--label); padding:10px 12px; border-radius:4px; margin:10px 0 0}
+.rt-rename{display:flex; flex-direction:column; gap:6px; margin:10px 0 0; max-width:520px}
+.rt-rename label{font-weight:700; font-size:.92rem}
+.rt-rename input{min-height:44px}
+.rt-item .rt-row a{min-height:44px; display:inline-flex; align-items:center}

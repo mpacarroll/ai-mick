@@ -13,6 +13,7 @@
   var slug = rootEl.getAttribute('data-course');
   var previewUrl = rootEl.getAttribute('data-preview');
   var coursePage = rootEl.getAttribute('data-course-page') || '../';
+  var myPage = rootEl.getAttribute('data-my-page') || '../../my/';
   var storage = null;
   try { storage = window.localStorage; } catch (e) { storage = null; }
 
@@ -213,9 +214,45 @@
     kids.push(el('label', { 'for': noteId, 'class': 'rt-label', text: 'Your notes' }));
     kids.push(ta);
     kids.push(el('p', { 'class': 'rt-row' }, [el('label', { 'class': 'rt-check', 'for': doneId }, [cb, ' I did this']), status]));
+    kids.push(toolkitRow(e, ta, function () { if (saveTimers[e.id]) flush(); }));
     var card = el('article', { 'class': 'rt-ex' + (p.done ? ' is-done' : ''), id: 'ex-' + e.id }, kids);
     return card;
   }
+
+  /* "Save to my toolkit": keeps a copy of the note as a named item on the My
+     courses page, so the useful part outlives the course. */
+  function toolkitRow(e, ta, flushNote) {
+    var title = (e.artifact && e.artifact.title) || e.label || ('Exercise ' + e.id);
+    var msg = el('span', { 'class': 'rt-saved', role: 'status' });
+    var btn = el('button', { type: 'button', 'class': 'rt-btn2 rt-keep' });
+    var see = el('a', { href: myPage + '#toolkit', text: 'See my toolkit' });
+    function saved() { var cs = courseState(); return cs && cs.artifacts && cs.artifacts[e.id]; }
+    function paint() {
+      var a = saved();
+      btn.textContent = a ? 'Update my toolkit copy' : 'Save to my toolkit';
+      see.hidden = !a;
+      if (a && !msg.textContent) msg.textContent = 'In your toolkit as "' + a.title + '".';
+    }
+    btn.addEventListener('click', function () {
+      flushNote();
+      if (!ta.value.trim()) { msg.textContent = 'Write a note first, then save it to your toolkit.'; ta.focus(); return; }
+      var a = saved();
+      var ok = store.saveArtifact(slug, e.id, { title: a ? a.title : title, body: ta.value, source: e.label || ('Exercise ' + e.id), module: currentModuleId(e.id) });
+      msg.textContent = ok ? (a ? 'Updated in your toolkit.' : 'Saved to your toolkit as "' + title + '".') : 'Not saved. This browser is not keeping changes; export your notes from the notebook.';
+      setNotice();
+      paint();
+    });
+    paint();
+    return el('div', { 'class': 'rt-toolkit' }, [
+      el('p', { 'class': 'fine', text: 'Worth keeping? Your toolkit holds a copy of this note after the course is over: ' + title + '.' }),
+      el('p', { 'class': 'rt-row' }, [btn, see, msg])
+    ]);
+  }
+  function currentModuleId(exId) {
+    var m = pack.modules.filter(function (x) { return !x.locked && x.exercises.some(function (y) { return y.id === exId; }); })[0];
+    return m ? m.id : '';
+  }
+  function snapshot() { if (pack && courseState()) store.setSnapshot(slug, Core.snapshotFor(pack, courseState())); }
 
   var moduleFoot = null, currentModule = null;
   function refreshModuleFoot() {
@@ -224,6 +261,7 @@
     var ms = s.modules.filter(function (x) { return x.id === currentModule.id; })[0];
     if (s.complete) store.markComplete(slug, true);
     else if (courseState() && courseState().completedAt) store.markComplete(slug, false);
+    snapshot();
     moduleFoot.textContent = '';
     var idx = pack.modules.indexOf(currentModule);
     var prev = pack.modules[idx - 1], next = pack.modules[idx + 1];
@@ -399,6 +437,7 @@
     else views = overview();
     main.textContent = '';
     views.forEach(function (v) { if (v) main.appendChild(v); });
+    snapshot();
     document.title = (h && moduleById(h) ? moduleById(h).title + ' · ' : h === 'notebook' ? 'My notebook · ' : '') + pack.title + ': a Mick Cairn course';
     setNotice();
     if (focus) { var h1 = main.querySelector('h1'); if (h1) h1.focus({ preventScroll: false }); }

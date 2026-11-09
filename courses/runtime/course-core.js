@@ -21,6 +21,8 @@
   var SAVE_VERSION = 1;
   var MAX_NOTE = 20000;          // characters per exercise note
   var MAX_PACK_BYTES = 1000000;  // refuse anything bigger on import
+  var MAX_TITLE = 120;           // characters in a toolkit item's title
+  var SAFE_ID = /^[A-Za-z0-9._-]{1,40}$/; // module ids that may go in a link
 
   function isObj(v) { return v !== null && typeof v === 'object' && !Array.isArray(v); }
   function isStr(v) { return typeof v === 'string'; }
@@ -103,6 +105,7 @@
         if (!isStr(e.text) || !e.text.trim()) errors.push(ew + ' has no instructions.');
         if (e.prompt != null && !isStr(e.prompt)) errors.push(ew + ' has an unreadable prompt.');
         if (e.label != null && !isStr(e.label)) errors.push(ew + ' has an unreadable label.');
+        if (e.artifact != null && !(isObj(e.artifact) && isStr(e.artifact.title) && e.artifact.title.trim())) errors.push(ew + ' has a toolkit item with no title.');
         if (e.handoff != null) checkHandoff(e.handoff, ew, errors);
       });
     });
@@ -143,13 +146,13 @@
   function emptyState() { return { version: SAVE_VERSION, courses: {} }; }
 
   function emptyCourse(clock) {
-    return { startedAt: nowIso(clock), updatedAt: null, completedAt: null, lastModule: null, read: {}, exercises: {} };
+    return { startedAt: nowIso(clock), updatedAt: null, completedAt: null, lastModule: null, read: {}, exercises: {}, artifacts: {}, snapshot: null };
   }
 
   /* Keep only well-formed fields, so a hand-edited or half-written save cannot
      crash the page. Returns a fresh object. */
   function normalizeCourse(c) {
-    var out = { startedAt: null, updatedAt: null, completedAt: null, lastModule: null, read: {}, exercises: {} };
+    var out = { startedAt: null, updatedAt: null, completedAt: null, lastModule: null, read: {}, exercises: {}, artifacts: {}, snapshot: null };
     if (!isObj(c)) return out;
     ['startedAt', 'updatedAt', 'completedAt', 'lastModule'].forEach(function (k) { if (isStr(c[k])) out[k] = c[k]; });
     if (isObj(c.read)) Object.keys(c.read).forEach(function (k) { if (c.read[k] === true) out.read[k] = true; });
@@ -162,6 +165,28 @@
         updatedAt: isStr(e.updatedAt) ? e.updatedAt : null
       };
     });
+    if (isObj(c.artifacts)) Object.keys(c.artifacts).forEach(function (k) {
+      var a = c.artifacts[k];
+      if (!isObj(a) || !isStr(a.body) || !a.body.trim()) return;
+      out.artifacts[k] = {
+        title: isStr(a.title) && a.title.trim() ? a.title.trim().slice(0, MAX_TITLE) : 'Untitled',
+        body: a.body.slice(0, MAX_NOTE),
+        source: isStr(a.source) ? a.source.slice(0, MAX_TITLE) : '',
+        module: isStr(a.module) && SAFE_ID.test(a.module) ? a.module : '',
+        savedAt: isStr(a.savedAt) ? a.savedAt : null
+      };
+    });
+    if (isObj(c.snapshot)) {
+      var sn = c.snapshot;
+      out.snapshot = {
+        title: isStr(sn.title) ? sn.title.slice(0, MAX_TITLE) : '',
+        edition: sn.edition === 'full' ? 'full' : 'preview',
+        done: typeof sn.done === 'number' && sn.done >= 0 ? Math.floor(sn.done) : 0,
+        total: typeof sn.total === 'number' && sn.total >= 0 ? Math.floor(sn.total) : 0,
+        lockedModules: typeof sn.lockedModules === 'number' && sn.lockedModules >= 0 ? Math.floor(sn.lockedModules) : 0,
+        lastModuleTitle: isStr(sn.lastModuleTitle) ? sn.lastModuleTitle.slice(0, MAX_TITLE) : ''
+      };
+    }
     return out;
   }
 
@@ -290,6 +315,43 @@
         if (!done && c.completedAt) { c.completedAt = null; return persist(); }
         return true;
       },
+      /* The toolkit: things worth keeping after the course, saved from an
+         exercise note. One item per exercise; saving again updates it. */
+      saveArtifact: function (slug, exId, item) {
+        sync();
+        var body = isObj(item) && isStr(item.body) ? item.body.slice(0, MAX_NOTE) : '';
+        if (!body.trim()) return false;
+        var c = course(slug);
+        if (!c.artifacts) c.artifacts = {};
+        var title = isStr(item.title) && item.title.trim() ? item.title.trim().slice(0, MAX_TITLE) : 'Untitled';
+        c.artifacts[exId] = normalizeCourse({ artifacts: { x: { title: title, body: body, source: item.source, module: item.module, savedAt: nowIso(clock) } } }).artifacts.x;
+        touch(c);
+        return persist();
+      },
+      renameArtifact: function (slug, exId, title) {
+        sync();
+        var c = state.courses[slug], a = c && c.artifacts && c.artifacts[exId];
+        if (!a || !isStr(title) || !title.trim()) return false;
+        a.title = title.trim().slice(0, MAX_TITLE);
+        return persist();
+      },
+      removeArtifact: function (slug, exId) {
+        sync();
+        var c = state.courses[slug];
+        if (!c || !c.artifacts || !c.artifacts[exId]) return true;
+        delete c.artifacts[exId];
+        return persist();
+      },
+      /* What the "My courses" page shows without loading every course file.
+         Written by the learn page; only saved when it changed. */
+      setSnapshot: function (slug, snap) {
+        sync();
+        var c = course(slug);
+        var next = normalizeCourse({ snapshot: snap }).snapshot;
+        if (JSON.stringify(c.snapshot || null) === JSON.stringify(next)) return true;
+        c.snapshot = next;
+        return persist();
+      },
       replaceCourse: function (slug, progress) { sync(); state.courses[slug] = normalizeCourse(progress); return persist(); },
       resetCourse: function (slug) { sync(); delete state.courses[slug]; return persist(); },
       /* Installed full packs live beside the save, one key per course. */
@@ -351,6 +413,64 @@
       if (!known[id] && (e.note || e.done)) out.push({ id: id, note: e.note, done: e.done });
     });
     return out;
+  }
+
+  /* ---------- my courses and toolkit ---------- */
+
+  function snapshotFor(pack, courseState) {
+    var s = summarize(pack, courseState);
+    var last = courseState && courseState.lastModule;
+    var m = last && arr(pack.modules).filter(function (x) { return x.id === last; })[0];
+    return { title: pack.title, edition: pack.edition, done: s.done, total: s.total, lockedModules: s.lockedModules, lastModuleTitle: m ? m.title : '' };
+  }
+
+  /* One row per catalog course. status: none (no learn page yet) | new |
+     started | finished. Paths in the catalog are relative to courses/. */
+  function myCourses(state, catalog) {
+    return arr(catalog).map(function (entry) {
+      var c = state && state.courses && state.courses[entry.slug];
+      var row = { slug: entry.slug, title: entry.title, level: entry.level || '', page: entry.page, learn: entry.learn || null,
+        status: 'none', done: 0, total: 0, edition: null, resume: null, toolkit: 0, lastModuleTitle: '' };
+      if (c && c.artifacts) row.toolkit = Object.keys(c.artifacts).length;
+      if (!row.learn) return row;
+      row.resume = row.learn;
+      var worked = c && (c.updatedAt || Object.keys(c.exercises || {}).length);
+      if (!c || !worked) { row.status = 'new'; return row; }
+      var sn = c.snapshot;
+      if (sn) { row.done = sn.done; row.total = sn.total; row.edition = sn.edition; row.lastModuleTitle = sn.lastModuleTitle; }
+      if (c.lastModule && SAFE_ID.test(c.lastModule)) row.resume = row.learn + '#' + c.lastModule;
+      row.status = c.completedAt ? 'finished' : 'started';
+      return row;
+    });
+  }
+
+  function listArtifacts(state, catalog) {
+    var titles = {};
+    arr(catalog).forEach(function (e) { titles[e.slug] = e.title; });
+    var out = [];
+    Object.keys((state && state.courses) || {}).forEach(function (slug) {
+      var c = state.courses[slug];
+      Object.keys((c && c.artifacts) || {}).forEach(function (exId) {
+        var a = c.artifacts[exId];
+        out.push({ course: slug, courseTitle: titles[slug] || (c.snapshot && c.snapshot.title) || slug, exercise: exId,
+          title: a.title, body: a.body, source: a.source, module: a.module || '', savedAt: a.savedAt });
+      });
+    });
+    out.sort(function (a, b) { return String(b.savedAt || '').localeCompare(String(a.savedAt || '')) || a.title.localeCompare(b.title); });
+    return out;
+  }
+
+  function exportToolkitMarkdown(state, catalog, clock) {
+    var items = listArtifacts(state, catalog);
+    var lines = ['# My AI toolkit', '', 'Exported ' + nowIso(clock).slice(0, 10) + '. ' + items.length + (items.length === 1 ? ' item' : ' items') + ' saved from Mick Cairn courses.', ''];
+    if (!items.length) lines.push('_Nothing saved yet. In any course exercise, write a note and choose "Save to my toolkit"._', '');
+    items.forEach(function (a) {
+      lines.push('## ' + a.title, '');
+      lines.push('_From ' + a.courseTitle + (a.source ? ', ' + a.source : '') + (a.savedAt ? '. Saved ' + a.savedAt.slice(0, 10) : '') + '._', '');
+      lines.push(a.body.trim(), '');
+    });
+    lines.push('---', '', 'Saved on your own device. Nothing here was sent anywhere.');
+    return lines.join('\n') + '\n';
   }
 
   /* ---------- checkout ---------- */
@@ -420,6 +540,7 @@
     validatePack: validatePack, parsePackText: parsePackText, allSteps: allSteps,
     migrate: migrate, normalizeCourse: normalizeCourse, createStore: createStore,
     summarize: summarize, resumeModule: resumeModule, orphanNotes: orphanNotes,
+    snapshotFor: snapshotFor, myCourses: myCourses, listArtifacts: listArtifacts, exportToolkitMarkdown: exportToolkitMarkdown, MAX_TITLE: MAX_TITLE,
     checkout: checkout, exportMarkdown: exportMarkdown, makeBackup: makeBackup, readBackup: readBackup
   };
 });

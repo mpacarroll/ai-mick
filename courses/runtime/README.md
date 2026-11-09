@@ -13,6 +13,8 @@ this site.
 | `course-core.js` | Pure logic, shared with the node tests: pack validation, the versioned save, recovery, progress, checkout state, Markdown export, backup and restore. |
 | `course-app.js` | The page: renders views by URL hash (`#`, `#m1`, `#notebook`, `#done`). |
 | `course-runtime.css` | Additions on top of `../course.css`. Same tokens. |
+| `catalog.js` | Every course, for the My courses page. `learn: null` means no learn page yet, and the page says so. |
+| `my-app.js` | The My courses page (`courses/my/`): progress across courses, resume links, and the toolkit. |
 | `../../scripts/build-course-pack.mjs` | Turns a `course.md` manuscript plus an overlay into a pack. |
 | `../../scripts/course-overlays/<slug>.json` | Per-course extras: free modules, locked-module summaries, tool links per exercise, added plan days, closing links. |
 
@@ -48,8 +50,17 @@ One key, `mick.courses`, `{ version: 1, courses: { <slug>: progress } }`.
 - Damaged JSON or an unversioned save: copied to `mick.courses.corrupt`, page starts fresh, learner is told.
 - A save from a newer version: shown read-only, never overwritten.
 - Storage blocked or full: work continues in memory with a banner to export.
-- Another tab changes the save: this tab reloads it (unless a note is being typed).
+- Another tab changes the save: the store re-reads the save before every write, so neither tab wipes the other. The screen refreshes; a note being typed is left alone while the other fields update in place.
 - Notes for exercises missing from the current edition are kept and exported under "Other notes".
+
+Each course record can also hold:
+
+- `artifacts`: the toolkit. `{ <exerciseId>: { title, body, source, module, savedAt } }`, saved from an exercise with "Save to my toolkit". It is a copy of the note; "Update my toolkit copy" refreshes it. It travels in the course backup.
+- `snapshot`: `{ title, edition, done, total, lockedModules, lastModuleTitle }`, written by the learn page when it changes, so the My courses page can show progress without loading every course file.
+
+## Toolkit and My courses
+
+An overlay can name the toolkit item an exercise produces: `"exercises": { "1.1": { "artifact": { "title": "..." } } }`. Exercises without one still save, titled with their label. `courses/my/` lists each course in `catalog.js` with an honest status (not in the browser yet, not started, in progress, finished) and every saved item with Copy, Rename, Open the exercise, Remove, and Download my toolkit (Markdown). The page is `noindex` and is not in the sitemap: it only shows what is in the visitor's own browser.
 
 To bump the save version, add a branch to `migrate()` in `course-core.js` that
 upgrades the old shape, and a test for it.
@@ -60,10 +71,11 @@ upgrades the old shape, and a test for it.
 2. Build the preview into `courses/<slug>/learn/preview.pack.json`.
 3. Copy `courses/ai-starts-here/learn/index.html` and change `data-course`, the title and meta tags.
 4. Add a link from the course page and a sitemap entry.
+5. Set `learn` for the course in `catalog.js`.
 
 ## Tests
 
 ```
 npm test            # node unit tests (core, builder, committed preview)
-npm run test:e2e    # Playwright, synthetic full course; FULL_PACK=dist/... for the real one; SHOTS=dir for screenshots
+npm run test:e2e    # Playwright: learn page, then toolkit and My courses. Synthetic full course; FULL_PACK=dist/... for the real one; SHOTS=dir for screenshots
 ```

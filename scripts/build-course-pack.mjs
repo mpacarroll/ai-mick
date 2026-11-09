@@ -85,7 +85,7 @@ export function buildPack(md, overlay, edition, courseOverride) {
     const o = (overlay.modules || {})[m.id] || {};
     const exercises = m.exercises.map((e) => {
       const eo = (overlay.exercises || {})[e.id] || {};
-      return { ...e, ...(eo.handoff ? { handoff: eo.handoff } : {}), ...(eo.prompt !== undefined ? { prompt: eo.prompt } : {}) };
+      return { ...e, ...(eo.handoff ? { handoff: eo.handoff } : {}), ...(eo.prompt !== undefined ? { prompt: eo.prompt } : {}), ...(eo.artifact ? { artifact: eo.artifact } : {}) };
     });
     (o.addExercises || []).forEach((e) => exercises.push({ prompt: null, ...e }));
     const full = { id: m.id, number: m.number, title: m.title, summary: o.summary || '', paragraphs: m.paragraphs, exercises, learning: m.learning };

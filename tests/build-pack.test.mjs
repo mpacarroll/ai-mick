@@ -79,3 +79,23 @@ test('the real AI Starts Here manuscript builds into 5 modules and 13 exercises'
   const committed = JSON.parse(readFileSync(new URL('../courses/ai-starts-here/learn/preview.pack.json', import.meta.url), 'utf8'));
   assert.deepEqual(buildPack(src, realOverlay, 'preview'), committed, 'preview.pack.json is stale: run npm run build:preview');
 });
+
+test('overlay toolkit items reach the built exercise, and a bad one is refused', () => {
+  const md = readFileSync(new URL('./fixtures/sample-course.md', import.meta.url), 'utf8');
+  const ov = JSON.parse(readFileSync(new URL('./fixtures/sample-overlay.json', import.meta.url), 'utf8'));
+  const p = buildPack(md, ov, 'full');
+  const ex = p.modules[1].exercises.find((e) => e.id === '2.1');
+  assert.deepEqual(ex.artifact, { title: 'My interview request' });
+  // Locked modules in the preview still carry nothing from the paid text.
+  const pv = buildPack(md, ov, 'preview');
+  assert.equal(JSON.stringify(pv.modules[1]).includes('artifact'), false);
+  ov.exercises['2.1'].artifact = { title: '' };
+  assert.throws(() => buildPack(md, ov, 'full'), /toolkit item with no title/);
+});
+
+test('the committed preview names a toolkit item for each free exercise', () => {
+  const pv = JSON.parse(readFileSync(new URL('../courses/ai-starts-here/learn/preview.pack.json', import.meta.url), 'utf8'));
+  const free = pv.modules.filter((m) => !m.locked).flatMap((m) => m.exercises);
+  assert.ok(free.length > 0);
+  for (const e of free) assert.ok(e.artifact && e.artifact.title, 'exercise ' + e.id + ' has no toolkit title');
+});

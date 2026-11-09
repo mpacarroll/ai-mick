@@ -15,12 +15,15 @@
         { "id": "5.d2", "label": "Day 2", "text": "A different real task. This time ask for three versions or three options before you settle on one. Write down which one you picked and why." },
         { "id": "5.d3", "label": "Day 3", "text": "A task with at least one fact in it. Check every fact the assistant gives you against a real source. Write down what held up and what did not." },
         { "id": "5.d4", "label": "Day 4", "text": "A decision or plan. Ask the assistant to interview you about it, one question at a time, before it gives any advice. Write down the question that helped most." },
-        { "id": "5.d5", "label": "Day 5", "text": "Your choice. Use all four habits on one task: plain goal, options, verify, iterate. Write down what you would do differently from Day 1." }
+        { "id": "5.d5", "label": "Day 5", "text": "Your choice. Use all four habits on one task: plain goal, options, verify, iterate. Write down what you would do differently from Day 1.", "artifact": { "title": "My four-habit routine" } }
       ]
     }
   },
   "exercises": {
+    "1.1": { "artifact": { "title": "What my AI says it is good and bad at" } },
+    "1.2": { "artifact": { "title": "My cut-it-in-half request" } },
     "2.1": {
+      "artifact": { "title": "A clear request the Prompt Helper wrote for me" },
       "handoff": {
         "label": "Open the Prompt Helper",
         "url": "https://mpacarroll.github.io/ai-foundations/tool/",
