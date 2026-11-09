@@ -1,0 +1,40 @@
+{
+  "course": "ai-starts-here",
+  "author": "Mick Cairn",
+  "coursePage": "../",
+  "freeModules": ["m1"],
+  "modules": {
+    "m1": { "summary": "Why AI needs no special skill, and the two exercises that prove it." },
+    "m2": { "summary": "Goal-first requests, and why asking for three versions beats asking for one." },
+    "m3": { "summary": "Trust it for drafts, verify it for facts. The habit worth more than any prompting trick." },
+    "m4": { "summary": "Using AI to think, not just to produce text. Interviews, iteration, pushback." },
+    "m5": {
+      "summary": "One real task a day for five days, using the four habits.",
+      "addExercises": [
+        { "id": "5.d1", "label": "Day 1", "text": "Pick one real task you would normally put off: an email, a decision, a plan, or a piece of research. Use the assistant for it with the four habits. Write down the task and what happened." },
+        { "id": "5.d2", "label": "Day 2", "text": "A different real task. This time ask for three versions or three options before you settle on one. Write down which one you picked and why." },
+        { "id": "5.d3", "label": "Day 3", "text": "A task with at least one fact in it. Check every fact the assistant gives you against a real source. Write down what held up and what did not." },
+        { "id": "5.d4", "label": "Day 4", "text": "A decision or plan. Ask the assistant to interview you about it, one question at a time, before it gives any advice. Write down the question that helped most." },
+        { "id": "5.d5", "label": "Day 5", "text": "Your choice. Use all four habits on one task: plain goal, options, verify, iterate. Write down what you would do differently from Day 1." }
+      ]
+    }
+  },
+  "exercises": {
+    "2.1": {
+      "handoff": {
+        "label": "Open the Prompt Helper",
+        "url": "https://mpacarroll.github.io/ai-foundations/tool/",
+        "note": "A free Mick tool on another page. Answer its questions and it writes the request for you. It does not send anything to an AI; you copy its request into your own assistant, then come back here to note what happened."
+      }
+    }
+  },
+  "closing": [
+    "You have the whole foundation now: it is a conversation, describe the goal and not the mechanism, verify facts, and iterate instead of accepting the first answer.",
+    "Want the practitioner-level course next? Get AI to Actually Help covers real workflows for work, money conversations, and everyday life."
+  ],
+  "handoffs": [
+    { "label": "Prompt Helper (free tool)", "url": "https://mpacarroll.github.io/ai-foundations/tool/", "note": "Writes a clear request for you when you are stuck on what to type." },
+    { "label": "Get AI to Actually Help (Level 2)", "url": "../../get-ai-to-help/", "note": "The next course. Its own page says whether checkout is open." },
+    { "label": "One useful thing a week (free email)", "url": "../#email", "note": "The sign-up form on the course page." }
+  ]
+}

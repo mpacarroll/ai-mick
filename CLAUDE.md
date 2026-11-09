@@ -41,3 +41,5 @@ Durable, repo-specific context lives here and in `.claude/rules/`. Architecture 
 In-flight task state is separate: it lives in `.claude/state/handoff.md`, written by any session that stops mid-task (the injected Coordination rules make this automatic) and injected into the next session by the plugin's SessionStart hook. Durable facts here, current-task state there.
 
 <!-- repo-knowledge: content below this line is preserved by sync-repo.sh -->
+
+- Course runtime: `courses/runtime/` (see its README). Paid course text stays out of this public repo; see `.claude/rules/course-runtime.md`. Tests: `npm test`, `npm run test:e2e`.

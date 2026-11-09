@@ -1,0 +1,90 @@
+{
+  "schema": "mick.course-pack",
+  "version": 1,
+  "course": "ai-starts-here",
+  "edition": "preview",
+  "title": "AI Starts Here",
+  "subtitle": "A short course for people who feel behind on AI and are not",
+  "author": "Mick Cairn",
+  "coursePage": "../",
+  "intro": [
+    "You do not need to install anything unusual, learn to code, or read a manual. If you can send a text message, you have everything you need. Every exercise in this course uses whatever AI assistant you already have open, or a free one you sign up for in thirty seconds.",
+    "Do the exercises. Reading about a bicycle does not teach you to ride one. Five minutes of actually typing into an AI teaches you more than an hour of reading about it."
+  ],
+  "modules": [
+    {
+      "id": "m1",
+      "number": 1,
+      "title": "It is a conversation, not a program",
+      "summary": "Why AI needs no special skill, and the two exercises that prove it.",
+      "paragraphs": [
+        "The single biggest myth about AI is that you need special words, a \"prompt engineering\" course, or a technical brain to use it well. You do not. Working with an assistant is mostly writing plainly what you want, reading what comes back, and saying \"no, more like this.\" That is a conversation. You have had ten thousand of those.",
+        "The fear is not silly, though. There is real hype, real nonsense, and real people talking past you on purpose so you feel you need them. But the tool itself is patient, cheap, and does not care whether you finished a computer course. It will explain the same thing five different ways until one lands."
+      ],
+      "exercises": [
+        {
+          "id": "1.1",
+          "label": "Exercise 1.1",
+          "text": "Open any AI assistant. Type exactly this: \"Explain what you are good at and what you are bad at, in plain language, like you're talking to a smart friend who has never used you.\" Read the answer. This single exercise removes most of the mystery.",
+          "prompt": "Explain what you are good at and what you are bad at, in plain language, like you're talking to a smart friend who has never used you."
+        },
+        {
+          "id": "1.2",
+          "label": "Exercise 1.2",
+          "text": "Take the longest message or email you sent this week. Paste it in and say: \"Cut this to half the length without losing anything that matters.\" Read both versions. Notice what it kept and what it cut.",
+          "prompt": "Cut this to half the length without losing anything that matters."
+        }
+      ],
+      "learning": "AI is a fast, tireless editor and explainer, not a magic oracle. Treat it like a very well-read assistant, not a genius."
+    },
+    {
+      "id": "m2",
+      "number": 2,
+      "title": "Say what you want, not how to get it",
+      "summary": "Goal-first requests, and why asking for three versions beats asking for one.",
+      "locked": true
+    },
+    {
+      "id": "m3",
+      "number": 3,
+      "title": "The single most important habit: verify",
+      "summary": "Trust it for drafts, verify it for facts. The habit worth more than any prompting trick.",
+      "locked": true
+    },
+    {
+      "id": "m4",
+      "number": 4,
+      "title": "Make it a back-and-forth, not a single ask",
+      "summary": "Using AI to think, not just to produce text. Interviews, iteration, pushback.",
+      "locked": true
+    },
+    {
+      "id": "m5",
+      "number": 5,
+      "title": "Your one-week plan",
+      "summary": "One real task a day for five days, using the four habits.",
+      "locked": true
+    }
+  ],
+  "closing": [
+    "You have the whole foundation now: it is a conversation, describe the goal and not the mechanism, verify facts, and iterate instead of accepting the first answer.",
+    "Want the practitioner-level course next? Get AI to Actually Help covers real workflows for work, money conversations, and everyday life."
+  ],
+  "handoffs": [
+    {
+      "label": "Prompt Helper (free tool)",
+      "url": "https://mpacarroll.github.io/ai-foundations/tool/",
+      "note": "Writes a clear request for you when you are stuck on what to type."
+    },
+    {
+      "label": "Get AI to Actually Help (Level 2)",
+      "url": "../../get-ai-to-help/",
+      "note": "The next course. Its own page says whether checkout is open."
+    },
+    {
+      "label": "One useful thing a week (free email)",
+      "url": "../#email",
+      "note": "The sign-up form on the course page."
+    }
+  ]
+}
