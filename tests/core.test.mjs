@@ -218,3 +218,69 @@ test('resetCourse() deletes only that course', () => {
   assert.equal(s.state().courses['sample-course'], undefined);
   assert.equal(s.state().courses.other.exercises['1.1'].note, 'b');
 });
+
+test('safeUrl() refuses backslash and whitespace tricks that browsers read as another site', () => {
+  assert.ok(!Core.safeUrl('/\\evil.example/'));
+  assert.ok(!Core.safeUrl('\\\\evil.example/'));
+  assert.ok(!Core.safeUrl('/ok /path'));
+});
+
+test('validatePack() rejects wrongly typed fields an imported file could carry', () => {
+  const p = full();
+  p.intro = 'not a list';
+  p.modules[0].paragraphs = [1, 2];
+  p.modules[0].number = 'one';
+  p.modules[0].exercises[0].label = { x: 1 };
+  p.handoffs = {};
+  const r = Core.validatePack(p, 'sample-course');
+  assert.equal(r.ok, false);
+  for (const re of [/unreadable intro/, /has no text/, /unreadable number/, /unreadable label/, /unreadable list of links/]) {
+    assert.ok(r.errors.some((e) => re.test(e)), 'missing error ' + re);
+  }
+});
+
+test('parsePackText() fills optional fields so a minimal valid pack still renders', () => {
+  const p = full();
+  delete p.intro; delete p.closing; delete p.handoffs; delete p.subtitle;
+  p.modules.forEach((m) => { delete m.number; });
+  const r = Core.parsePackText(JSON.stringify(p), 'sample-course');
+  assert.equal(r.ok, true, r.errors.join(' '));
+  assert.deepEqual([r.pack.intro, r.pack.closing, r.pack.handoffs, r.pack.subtitle], [[], [], [], '']);
+  assert.deepEqual(r.pack.modules.map((m) => m.number), r.pack.modules.map((_, i) => i + 1));
+});
+
+test('two stores on one storage (two tabs) never wipe each other', () => {
+  const s = memStorage();
+  const a = Core.createStore(s, { clock });
+  const b = Core.createStore(s, { clock });
+  assert.ok(a.setNote('c', 'x1', 'from A'));
+  assert.ok(b.setNote('c', 'x2', 'from B'));
+  assert.ok(b.setDone('c', 'x2', true));
+  assert.ok(a.setNote('c', 'x1', 'from A, edited'));
+  const saved = JSON.parse(s.getItem(Core.SAVE_KEY)).courses.c.exercises;
+  assert.equal(saved.x1.note, 'from A, edited');
+  assert.equal(saved.x2.note, 'from B');
+  assert.equal(saved.x2.done, true);
+  // Reset in one tab is respected by the other, not resurrected.
+  assert.ok(b.resetCourse('c'));
+  a.reload();
+  assert.equal(a.state().courses.c, undefined);
+});
+
+test('a newer save written by another tab makes this tab read-only', () => {
+  const s = memStorage();
+  const a = Core.createStore(s, { clock });
+  assert.ok(a.setNote('c', 'x1', 'old'));
+  s.setItem(Core.SAVE_KEY, JSON.stringify({ version: Core.SAVE_VERSION + 1, courses: { c: { exercises: { x1: { note: 'newer' } } } } }));
+  assert.equal(a.setNote('c', 'x1', 'would overwrite'), false);
+  assert.equal(a.status, 'newer');
+  assert.match(JSON.parse(s.getItem(Core.SAVE_KEY)).courses.c.exercises.x1.note, /newer/);
+});
+
+test('validatePack() reports, never throws, on lists that are not lists', () => {
+  for (const mutate of [(p) => { p.modules = {}; }, (p) => { p.modules[0].exercises = {}; }, (p) => { p.handoffs = 'x'; }, (p) => { p.modules = [null, 5]; }]) {
+    const p = full(); mutate(p);
+    const r = Core.validatePack(p, 'sample-course');
+    assert.equal(r.ok, false);
+  }
+});

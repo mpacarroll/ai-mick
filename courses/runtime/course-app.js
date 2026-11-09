@@ -356,6 +356,7 @@
         el('p', {}, [el('a', { 'class': 'btn', href: '#' + Core.resumeModule(pack, courseState()), text: 'Keep going' })])
       ])];
     }
+    store.markComplete(slug, true); // a restored backup can be complete without a date yet
     var cs = courseState();
     return [el('section', { 'class': 'label' }, [
       el('p', { 'class': 'tag', text: 'Finished ' + (cs.completedAt || '').slice(0, 10) }),
@@ -436,15 +437,27 @@
     render(true);
   });
   /* Another tab changed the save: reload it so the two tabs do not overwrite each other. */
+  /* Another tab changed the save. The store merges it before every write, so
+     nothing is lost; here we only bring the screen up to date. While the
+     learner is typing, the page is not redrawn: the other fields update in
+     place and the note being typed is left alone. */
   window.addEventListener('storage', function (ev) {
-    if (ev.key !== Core.SAVE_KEY) return;
-    if (document.activeElement && document.activeElement.tagName === 'TEXTAREA') {
-      notices = ['This course is open in another tab. Changes there will show here when you leave this note.'];
-      setNotice();
-      return;
-    }
-    store = Core.createStore(storage);
-    render();
+    if (ev.key !== Core.SAVE_KEY || !pack) return;
+    store.reload();
+    var active = document.activeElement;
+    if (!(active && active.tagName === 'TEXTAREA' && active.classList.contains('rt-note'))) { render(); return; }
+    var cs = courseState() || { exercises: {} };
+    Array.prototype.forEach.call(main.querySelectorAll('.rt-ex'), function (card) {
+      var id = card.id.replace(/^ex-/, '');
+      var p = cs.exercises[id] || { done: false, note: '' };
+      var ta = card.querySelector('textarea.rt-note'), cb = card.querySelector('input[type=checkbox]');
+      if (ta && ta !== active && !saveTimers[id]) ta.value = p.note;
+      if (cb) cb.checked = p.done;
+      card.classList.toggle('is-done', p.done);
+    });
+    refreshModuleFoot();
+    notices = ['This course is also open in another tab. Work from both tabs is kept.'];
+    setNotice();
   });
   window.addEventListener('pagehide', function () {
     Array.prototype.forEach.call(main.querySelectorAll('textarea.rt-note'), function (ta) {

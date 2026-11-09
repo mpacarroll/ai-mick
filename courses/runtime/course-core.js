@@ -24,6 +24,7 @@
 
   function isObj(v) { return v !== null && typeof v === 'object' && !Array.isArray(v); }
   function isStr(v) { return typeof v === 'string'; }
+  function arr(v) { return Array.isArray(v) ? v : []; }
   function nowIso(clock) { return (clock ? clock() : new Date()).toISOString(); }
 
   /* ---------- text ---------- */
@@ -45,6 +46,7 @@
   function safeUrl(u) {
     if (!isStr(u)) return false;
     if (/^https:\/\//i.test(u)) return true;
+    if (/[\\\s]/.test(u)) return false; // browsers read "/\host" as another site
     if (/^(\.\.?\/|\/|#)/.test(u) && !/^\/\//.test(u)) return true;
     return false;
   }
@@ -53,9 +55,9 @@
 
   function allSteps(pack) {
     var out = [];
-    (pack.modules || []).forEach(function (m) {
-      if (m.locked) return;
-      (m.exercises || []).forEach(function (e) { out.push({ module: m.id, id: e.id }); });
+    arr(pack.modules).forEach(function (m) {
+      if (!isObj(m) || m.locked) return;
+      arr(m.exercises).forEach(function (e) { if (isObj(e)) out.push({ module: m.id, id: e.id }); });
     });
     return out;
   }
@@ -71,19 +73,27 @@
     if (!isStr(pack.title) || !pack.title.trim()) errors.push('The course file has no title.');
     if (pack.edition !== 'preview' && pack.edition !== 'full') errors.push('The course file must say whether it is the preview or the full course.');
     if (!Array.isArray(pack.modules) || !pack.modules.length) errors.push('The course file has no modules.');
+    ['intro', 'closing'].forEach(function (k) {
+      if (pack[k] != null && !strList(pack[k])) errors.push('The course file has an unreadable ' + k + '.');
+    });
+    if (pack.subtitle != null && !isStr(pack.subtitle)) errors.push('The course file has an unreadable subtitle.');
+    if (pack.handoffs != null && !Array.isArray(pack.handoffs)) errors.push('The course file has an unreadable list of links.');
     var seen = {};
-    (pack.modules || []).forEach(function (m, i) {
+    arr(pack.modules).forEach(function (m, i) {
       var where = 'Module ' + (i + 1);
       if (!isObj(m)) { errors.push(where + ' is not readable.'); return; }
       if (!isStr(m.id) || !m.id) errors.push(where + ' has no id.');
       else if (seen[m.id]) errors.push(where + ' repeats the id "' + m.id + '".');
       else seen[m.id] = true;
       if (!isStr(m.title) || !m.title.trim()) errors.push(where + ' has no title.');
+      if (m.number != null && typeof m.number !== 'number') errors.push(where + ' has an unreadable number.');
+      if (m.summary != null && !isStr(m.summary)) errors.push(where + ' has an unreadable summary.');
       if (m.locked) {
         if (pack.edition === 'full') errors.push(where + ' is locked inside a full course file.');
         return;
       }
-      if (!Array.isArray(m.paragraphs)) errors.push(where + ' has no text.');
+      if (!strList(m.paragraphs)) errors.push(where + ' has no text.');
+      if (m.learning != null && !isStr(m.learning)) errors.push(where + ' has an unreadable summary of what you learn.');
       if (!Array.isArray(m.exercises)) { errors.push(where + ' has no exercise list.'); return; }
       m.exercises.forEach(function (e, j) {
         var ew = where + ', exercise ' + (j + 1);
@@ -92,16 +102,30 @@
         seen['x:' + e.id] = true;
         if (!isStr(e.text) || !e.text.trim()) errors.push(ew + ' has no instructions.');
         if (e.prompt != null && !isStr(e.prompt)) errors.push(ew + ' has an unreadable prompt.');
+        if (e.label != null && !isStr(e.label)) errors.push(ew + ' has an unreadable label.');
         if (e.handoff != null) checkHandoff(e.handoff, ew, errors);
       });
     });
-    (pack.handoffs || []).forEach(function (h, i) { checkHandoff(h, 'Course link ' + (i + 1), errors); });
-    if (pack.edition === 'full' && (pack.modules || []).length && !allSteps(pack).length) errors.push('The full course has no exercises.');
+    (Array.isArray(pack.handoffs) ? pack.handoffs : []).forEach(function (h, i) { checkHandoff(h, 'Course link ' + (i + 1), errors); });
+    if (pack.edition === 'full' && arr(pack.modules).length && !allSteps(pack).length) errors.push('The full course has no exercises.');
     return { ok: errors.length === 0, errors: errors };
+  }
+
+  function strList(v) { return Array.isArray(v) && v.every(isStr); }
+
+  /* Fill the optional fields the page reads, so a valid pack always renders. */
+  function fillDefaults(pack) {
+    pack.subtitle = pack.subtitle || '';
+    pack.intro = pack.intro || [];
+    pack.closing = pack.closing || [];
+    pack.handoffs = pack.handoffs || [];
+    pack.modules.forEach(function (m, i) { if (m.number == null) m.number = i + 1; });
+    return pack;
   }
 
   function checkHandoff(h, where, errors) {
     if (!isObj(h) || !isStr(h.label) || !h.label.trim()) errors.push(where + ' has a link with no label.');
+    else if (h.note != null && !isStr(h.note)) errors.push(where + ' has a link with an unreadable note.');
     else if (!safeUrl(h.url)) errors.push(where + ' has a link that is not a safe web address.');
   }
 
@@ -111,7 +135,7 @@
     var pack;
     try { pack = JSON.parse(text); } catch (e) { return { ok: false, errors: ['The file is damaged or is not a course file (it is not valid JSON).'] }; }
     var v = validatePack(pack, expectedCourse);
-    return v.ok ? { ok: true, pack: pack, errors: [] } : { ok: false, errors: v.errors };
+    return v.ok ? { ok: true, pack: fillDefaults(pack), errors: [] } : { ok: false, errors: v.errors };
   }
 
   /* ---------- saves ---------- */
@@ -164,6 +188,7 @@
     opts = opts || {};
     var clock = opts.clock;
     var status = 'ok', notice = '', writable = true, state;
+    var lastRaw = null; // the save text this store last read or wrote
 
     function canUse() {
       try { var t = '__mick_test__'; storage.setItem(t, '1'); storage.removeItem(t); return true; } catch (e) { return false; }
@@ -175,6 +200,7 @@
     } else {
       var raw = null;
       try { raw = storage.getItem(SAVE_KEY); } catch (e) { raw = null; }
+      lastRaw = raw;
       if (raw == null) { status = 'fresh'; state = emptyState(); }
       else {
         var parsed = null, ok = true;
@@ -194,9 +220,28 @@
       }
     }
 
+    /* Another tab may have saved since this store last looked. Take its save
+       as the base before applying a change, so one tab never wipes the other's
+       work. A damaged save from elsewhere is ignored; ours replaces it. */
+    function sync() {
+      if (!writable) return;
+      var raw;
+      try { raw = storage.getItem(SAVE_KEY); } catch (e) { return; }
+      if (raw === lastRaw) return;
+      if (raw == null) { state = emptyState(); lastRaw = null; return; }
+      var parsed;
+      try { parsed = JSON.parse(raw); } catch (e) { return; }
+      var m = migrate(parsed);
+      if (m.state) { state = m.state; lastRaw = raw; }
+      else if (m.reason === 'newer') {
+        status = 'newer'; writable = false; state = normalizeState(parsed); lastRaw = raw;
+        notice = 'Your progress was saved by a newer version of this page in another tab. Reload to get it. Until then, changes here will not be saved, so nothing newer is overwritten.';
+      }
+    }
+
     function persist() {
       if (!writable) return false;
-      try { storage.setItem(SAVE_KEY, JSON.stringify(state)); return true; }
+      try { var text = JSON.stringify(state); storage.setItem(SAVE_KEY, text); lastRaw = text; return true; }
       catch (e) {
         status = 'memory'; writable = false;
         notice = 'This browser stopped letting the page save (storage may be full). Export your notes now so you do not lose them.';
@@ -223,26 +268,30 @@
       get writable() { return writable; },
       state: function () { return state; },
       course: course,
+      reload: sync,
       setNote: function (slug, id, note) {
+        sync();
         var e = exercise(slug, id), c = course(slug);
         e.note = String(note || '').slice(0, MAX_NOTE); e.updatedAt = nowIso(clock); touch(c);
         return persist();
       },
       setDone: function (slug, id, done) {
+        sync();
         var e = exercise(slug, id), c = course(slug);
         e.done = !!done; e.updatedAt = nowIso(clock); touch(c);
         return persist();
       },
-      setRead: function (slug, moduleId) { var c = course(slug); c.read[moduleId] = true; touch(c); return persist(); },
-      setLastModule: function (slug, moduleId) { var c = course(slug); c.lastModule = moduleId; return persist(); },
+      setRead: function (slug, moduleId) { sync(); var c = course(slug); c.read[moduleId] = true; touch(c); return persist(); },
+      setLastModule: function (slug, moduleId) { sync(); var c = course(slug); c.lastModule = moduleId; return persist(); },
       markComplete: function (slug, done) {
+        sync();
         var c = course(slug);
         if (done && !c.completedAt) { c.completedAt = nowIso(clock); return persist(); }
         if (!done && c.completedAt) { c.completedAt = null; return persist(); }
         return true;
       },
-      replaceCourse: function (slug, progress) { state.courses[slug] = normalizeCourse(progress); return persist(); },
-      resetCourse: function (slug) { delete state.courses[slug]; return persist(); },
+      replaceCourse: function (slug, progress) { sync(); state.courses[slug] = normalizeCourse(progress); return persist(); },
+      resetCourse: function (slug) { sync(); delete state.courses[slug]; return persist(); },
       /* Installed full packs live beside the save, one key per course. */
       loadPack: function (slug) {
         if (!storage) return null;
@@ -259,7 +308,7 @@
 
   function summarize(pack, courseState) {
     var c = courseState || { read: {}, exercises: {} };
-    var mods = (pack.modules || []).map(function (m) {
+    var mods = arr(pack.modules).map(function (m) {
       if (m.locked) return { id: m.id, locked: true, done: 0, total: 0, complete: false };
       var ex = m.exercises || [];
       var done = ex.filter(function (e) { return c.exercises[e.id] && c.exercises[e.id].done; }).length;
@@ -283,7 +332,7 @@
   /* Where to resume: the saved module if it still exists and is open, else the
      first open module with unfinished work, else the first open module. */
   function resumeModule(pack, courseState) {
-    var open = (pack.modules || []).filter(function (m) { return !m.locked; });
+    var open = arr(pack.modules).filter(function (m) { return !m.locked; });
     if (!open.length) return null;
     var s = summarize(pack, courseState);
     if (courseState && courseState.lastModule && open.some(function (m) { return m.id === courseState.lastModule; })) return courseState.lastModule;
@@ -324,10 +373,10 @@
       (s.lockedModules ? ' in the free preview (' + s.lockedModules + ' modules are in the full course).' : '.') +
       (c.completedAt ? ' Course finished ' + c.completedAt.slice(0, 10) + '.' : ''));
     lines.push('');
-    (pack.modules || []).forEach(function (m) {
+    arr(pack.modules).forEach(function (m) {
       if (m.locked) return;
       lines.push('## ' + m.title, '');
-      (m.exercises || []).forEach(function (e) {
+      arr(m.exercises).forEach(function (e) {
         var p = c.exercises[e.id] || { done: false, note: '' };
         lines.push('### ' + (e.label || ('Exercise ' + e.id)) + (p.done ? ' (done)' : ' (not done yet)'), '');
         lines.push('> ' + plain(e.text).replace(/\n/g, '\n> '), '');

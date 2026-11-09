@@ -263,6 +263,36 @@ await step('keyboard: module change moves focus to the new heading', async () =>
   await page.waitForFunction(() => document.activeElement && document.activeElement.tagName === 'H1' && /conversation/.test(document.activeElement.textContent));
 });
 
+await step('two tabs: work saved in one is not wiped by typing in the other', async () => {
+  await page.evaluate(() => { localStorage.removeItem('mick.courses'); localStorage.removeItem('mick.courses.corrupt'); });
+  await page.goto(URL_LEARN + '#m1');
+  await page.reload();
+  await page.locator('#note-1_1').waitFor();
+  const b = await ctx.newPage();
+  await b.goto(URL_LEARN + '#m1');
+  await b.locator('#note-1_2').waitFor();
+  // Tab A starts a note and keeps the cursor in it.
+  await page.locator('#note-1_1').click();
+  await page.locator('#note-1_1').pressSequentially('from tab A');
+  await page.locator('#ex-1\\.1').getByText('Saved on this device').waitFor();
+  // Tab B saves different work while A is still typing.
+  await b.locator('#note-1_2').fill('from tab B');
+  await b.locator('#ex-1\\.2').getByText('Saved on this device').waitFor();
+  await b.locator('#done-1_2').check();
+  await page.locator('#rt-notice').getByText(/open in another tab/).waitFor();
+  // A keeps typing, which saves again.
+  await page.locator('#note-1_1').pressSequentially(', more');
+  await page.locator('#note-1_1').blur();
+  await page.locator('#ex-1\\.1').getByText('Saved on this device').waitFor();
+  const st = await page.evaluate(() => JSON.parse(localStorage.getItem('mick.courses')).courses['ai-starts-here'].exercises);
+  assert.equal(st['1.1'].note, 'from tab A, more');
+  assert.equal(st['1.2'] && st['1.2'].note, 'from tab B', 'tab B note must survive tab A saving');
+  assert.equal(st['1.2'].done, true);
+  // Leaving the note shows tab B's work in tab A without a reload.
+  assert.equal(await page.locator('#note-1_2').inputValue(), 'from tab B');
+  await b.close();
+});
+
 await step('the runtime made no requests off this site and logged no errors', async () => {
   assert.deepEqual(outbound, []);
   assert.deepEqual(errors.filter((e) => !/Failed to load resource|ERR_FAILED/.test(e)), []);
