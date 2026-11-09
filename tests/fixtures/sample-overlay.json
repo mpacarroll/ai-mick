@@ -1,0 +1,15 @@
+{
+  "course": "sample-course",
+  "freeModules": ["m1"],
+  "modules": {
+    "m2": { "summary": "The second module summary." },
+    "m3": { "summary": "Plan days.", "addExercises": [
+      { "id": "3.d1", "label": "Day 1", "text": "Do one real task." },
+      { "id": "3.d2", "label": "Day 2", "text": "Do another real task." }
+    ] }
+  },
+  "exercises": {
+    "1.2": { "handoff": { "label": "Open a tool", "url": "https://example.com/tool/", "note": "Synthetic handoff." } }
+  },
+  "handoffs": [ { "label": "Next course", "url": "../../next/", "note": "Synthetic." } ]
+}

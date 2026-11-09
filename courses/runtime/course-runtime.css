@@ -1,0 +1,63 @@
+/* Course runtime additions on top of course.css. Same tokens, same labels. */
+main{display:flex; flex-direction:column; gap:22px}
+.rt-notice{margin:0; background:var(--label); border-left:6px solid var(--mark); border-radius:4px; padding:14px 18px; font-weight:700}
+.rt-notice[hidden]{display:none}
+.rt-progress{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin:16px 0 4px}
+.rt-progress progress{flex:1 1 200px; height:12px; accent-color:var(--accent)}
+.rt-progress span{font-family:var(--mono); font-size:.85rem; color:var(--muted)}
+.rt-actions{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin:20px 0 0}
+
+.rt-mods{list-style:none; margin:14px 0 0; padding:0; counter-reset:mod}
+.rt-mods li{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:2px 14px; padding:12px 0; border-bottom:1px dashed var(--rule); counter-increment:mod; align-items:baseline}
+.rt-mods li::before{content:counter(mod,decimal-leading-zero); font-family:var(--mono); color:var(--mark); font-weight:600; grid-row:span 2}
+.rt-mods a{color:var(--ink); text-decoration:none}
+.rt-mods a:hover b{text-decoration:underline; color:var(--link)}
+.rt-mods b{font-family:var(--display); font-size:1.12rem}
+.rt-state{font-family:var(--mono); font-size:.8rem; color:var(--muted); text-align:right}
+.rt-mods .is-done .rt-state{color:var(--accent); font-weight:700}
+.rt-mods .is-done .rt-state::before{content:"\2713  "}
+.rt-mods .is-locked b{color:var(--muted)}
+.rt-sum{grid-column:2 / -1; color:var(--muted); font-size:.95rem}
+@media (max-width:520px){ .rt-mods li{grid-template-columns:auto minmax(0,1fr)} .rt-state{grid-column:2; text-align:left} }
+
+.rt-ex{border:1.5px solid var(--rule); border-radius:4px; background:var(--label-2); padding:18px; margin-top:18px}
+.rt-ex.is-done{border-color:var(--accent)}
+.rt-ex h3{display:flex; gap:8px; align-items:baseline}
+.rt-ex.is-done h3::after{content:"Done"; font-family:var(--mono); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.rt-prompt{border-left:4px solid var(--mark); padding:8px 0 4px 14px; margin:12px 0}
+.rt-prompt code{display:block; font-family:var(--mono); font-size:.95rem; white-space:pre-wrap; overflow-wrap:anywhere; margin:6px 0}
+.rt-prompt p{margin:6px 0 0}
+.rt-handoff{margin:12px 0}
+.rt-handoff a{font-weight:700}
+.rt-label{display:block; font-weight:700; font-size:.92rem; margin:14px 0 6px}
+.rt-note{width:100%; resize:vertical; min-height:6em; line-height:1.5}
+.rt-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; margin:10px 0 0}
+.rt-check{display:inline-flex; align-items:center; gap:8px; font-weight:700; cursor:pointer; min-height:44px}
+.rt-check input{width:22px; height:22px; accent-color:var(--accent)}
+.rt-saved{font-size:.86rem; color:var(--muted)}
+.rt-btn2{font:inherit; font-weight:700; background:transparent; color:var(--ink); border:1.5px solid var(--ink); border-radius:4px; padding:10px 16px; cursor:pointer; min-height:44px}
+.rt-btn2:hover{background:var(--label-2)}
+.rt-btn2:disabled{opacity:.6; cursor:default}
+.rt-danger{border-color:#9b2c2c; color:#9b2c2c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rt-danger{border-color:#f0a3a3; color:#f0a3a3}}
+.rt-learning{margin:22px 0 0; padding:12px 14px; background:var(--label-2); border-radius:4px}
+.rt-foot{margin-top:20px; border-top:1px dashed var(--rule); padding-top:10px}
+.rt-modstate{font-weight:700; margin:0}
+.rt-nav{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; margin:12px 0 0}
+
+.rt-unlock{border-top:0}
+.rt-closed{font-weight:700; color:var(--mark)}
+.rt-import{margin-top:18px; display:flex; flex-direction:column; gap:6px; max-width:520px}
+.rt-import label{font-weight:700; font-size:.92rem}
+.rt-file{font:inherit; max-width:100%}
+
+.rt-book h2{margin-top:24px; font-size:1.3rem}
+.rt-book h2 a{color:var(--ink)}
+.rt-entry{border-bottom:1px dashed var(--rule); padding:10px 0}
+.rt-entry h3{font-size:1.02rem}
+.rt-notetext{white-space:pre-wrap; overflow-wrap:anywhere; margin:6px 0 0}
+.rt-handoffs{list-style:none; margin:10px 0 0; padding:0}
+.rt-handoffs li{display:flex; flex-direction:column; padding:10px 0; border-bottom:1px dashed var(--rule)}
+.rt-handoffs a{font-family:var(--display); font-weight:700; font-size:1.1rem}
+.rt-handoffs span{color:var(--muted); font-size:.95rem}
+h1[tabindex]:focus{outline:none}
