@@ -296,7 +296,11 @@ test('toolkit: save, update, rename and remove an item; empty notes are refused'
   assert.equal(st.saveArtifact('c', '1.1', { title: 'T', body: '   ' }), false);
   assert.ok(st.saveArtifact('c', '1.1', { title: '  My prompt  ', body: 'Ask for three versions.', source: 'Exercise 1.1' }));
   let saved = JSON.parse(s.getItem(Core.SAVE_KEY)).courses.c.artifacts['1.1'];
-  assert.deepEqual(saved, { title: 'My prompt', body: 'Ask for three versions.', source: 'Exercise 1.1', savedAt: '2026-11-09T12:00:00.000Z' });
+  assert.deepEqual(saved, { title: 'My prompt', body: 'Ask for three versions.', source: 'Exercise 1.1', module: '', savedAt: '2026-11-09T12:00:00.000Z' });
+  assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions.', module: 'm1' }));
+  assert.equal(st.state().courses.c.artifacts['1.1'].module, 'm1');
+  assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions.', module: '"><x' }));
+  assert.equal(st.state().courses.c.artifacts['1.1'].module, '', 'unsafe module ids never reach a link');
   assert.ok(st.saveArtifact('c', '1.1', { title: 'My prompt', body: 'Ask for three versions, then pick.' }));
   assert.equal(Object.keys(st.state().courses.c.artifacts).length, 1, 'saving again updates, never duplicates');
   assert.ok(st.renameArtifact('c', '1.1', 'x'.repeat(500)));

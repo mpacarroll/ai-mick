@@ -22,6 +22,7 @@
   var MAX_NOTE = 20000;          // characters per exercise note
   var MAX_PACK_BYTES = 1000000;  // refuse anything bigger on import
   var MAX_TITLE = 120;           // characters in a toolkit item's title
+  var SAFE_ID = /^[A-Za-z0-9._-]{1,40}$/; // module ids that may go in a link
 
   function isObj(v) { return v !== null && typeof v === 'object' && !Array.isArray(v); }
   function isStr(v) { return typeof v === 'string'; }
@@ -171,6 +172,7 @@
         title: isStr(a.title) && a.title.trim() ? a.title.trim().slice(0, MAX_TITLE) : 'Untitled',
         body: a.body.slice(0, MAX_NOTE),
         source: isStr(a.source) ? a.source.slice(0, MAX_TITLE) : '',
+        module: isStr(a.module) && SAFE_ID.test(a.module) ? a.module : '',
         savedAt: isStr(a.savedAt) ? a.savedAt : null
       };
     });
@@ -322,7 +324,7 @@
         var c = course(slug);
         if (!c.artifacts) c.artifacts = {};
         var title = isStr(item.title) && item.title.trim() ? item.title.trim().slice(0, MAX_TITLE) : 'Untitled';
-        c.artifacts[exId] = { title: title, body: body, source: isStr(item.source) ? item.source.slice(0, MAX_TITLE) : '', savedAt: nowIso(clock) };
+        c.artifacts[exId] = normalizeCourse({ artifacts: { x: { title: title, body: body, source: item.source, module: item.module, savedAt: nowIso(clock) } } }).artifacts.x;
         touch(c);
         return persist();
       },
@@ -436,7 +438,7 @@
       if (!c || !worked) { row.status = 'new'; return row; }
       var sn = c.snapshot;
       if (sn) { row.done = sn.done; row.total = sn.total; row.edition = sn.edition; row.lastModuleTitle = sn.lastModuleTitle; }
-      if (c.lastModule && /^[A-Za-z0-9._-]+$/.test(c.lastModule)) row.resume = row.learn + '#' + c.lastModule;
+      if (c.lastModule && SAFE_ID.test(c.lastModule)) row.resume = row.learn + '#' + c.lastModule;
       row.status = c.completedAt ? 'finished' : 'started';
       return row;
     });
@@ -451,7 +453,7 @@
       Object.keys((c && c.artifacts) || {}).forEach(function (exId) {
         var a = c.artifacts[exId];
         out.push({ course: slug, courseTitle: titles[slug] || (c.snapshot && c.snapshot.title) || slug, exercise: exId,
-          title: a.title, body: a.body, source: a.source, savedAt: a.savedAt });
+          title: a.title, body: a.body, source: a.source, module: a.module || '', savedAt: a.savedAt });
       });
     });
     out.sort(function (a, b) { return String(b.savedAt || '').localeCompare(String(a.savedAt || '')) || a.title.localeCompare(b.title); });

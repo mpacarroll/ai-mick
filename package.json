@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "test:e2e": "node tests/e2e/learn.e2e.mjs",
+    "test:e2e": "node tests/e2e/learn.e2e.mjs && node tests/e2e/my.e2e.mjs",
     "build:preview": "node scripts/build-course-pack.mjs --source ../mick-services/courses/ai-starts-here/course.md --overlay scripts/course-overlays/ai-starts-here.json --edition preview --out courses/ai-starts-here/learn/preview.pack.json",
     "build:full": "node scripts/build-course-pack.mjs --source ../mick-services/courses/ai-starts-here/course.md --overlay scripts/course-overlays/ai-starts-here.json --edition full --out dist/ai-starts-here.course.json"
   }
